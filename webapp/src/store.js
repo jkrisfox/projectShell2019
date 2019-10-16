@@ -1,3 +1,4 @@
+  
 import Vue from "vue";
 import Vuex from "vuex";
 import VuexPersist from "vuex-persist";
@@ -10,6 +11,7 @@ const vuexPersist = new VuexPersist({
 });
 
 export default new Vuex.Store({
+
   plugins: [vuexPersist.plugin],
   state: {
     todos: [
@@ -28,12 +30,27 @@ export default new Vuex.Store({
   mutations: {
     addToDo(state, todo) {
       state.todos = [...state.todos, {...todo, done: false, id: state.todos.length+1}];
-    }
+    },
+
+    removeToDo(state, todo_id) {
+      debugger;
+       for (var i = 0; i <= state.todos.length; i++){
+           state.todos = state.todos.filter(function(todo){
+             return todo_id != todo.id;
+           });
+          }
+        }
   },
+
   actions: {
     addToDo({ commit }, toDo) {
       debugger;
       commit("addToDo", toDo);
+    },
+    removeToDo({ commit }, toDo) {
+      debugger;
+      commit("removeToDo", toDo);
     }
   }
+
 });
