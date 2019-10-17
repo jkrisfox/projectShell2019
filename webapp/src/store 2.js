@@ -26,26 +26,14 @@ export default new Vuex.Store({
     ]
   },
   mutations: {
-    createToDo(state, todo) {
-      state.todos = [
-        ...state.todos,
-        { ...todo, done: false, id: state.todos.length + 1 }
-      ];
-    },
-    deleteToDo(state, todo_id) {
-      for (var i = 0; i <= state.todos.length; i++) {
-        state.todos = state.todos.filter(function(todo) {
-          return todo_id != todo.id;
-        });
-      }
+    addToDo(state, todo) {
+      state.todos = [...state.todos, {...todo, done: false, id: state.todos.length+1}];
     }
   },
   actions: {
-    createToDo({ commit }, toDo) {
-      commit("createToDo", toDo);
-    },
-    deleteToDo({ commit }, toDo) {
-      commit("deleteToDo", toDo);
+    addToDo({ commit }, toDo) {
+      debugger;
+      commit("addToDo", toDo);
     }
   }
 });
