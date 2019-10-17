@@ -9,6 +9,7 @@
       <div class="column is-half">
         <template v-for="todo in todos">
           <ToDo :key="todo.id" :todo="todo" />
+          <span class="remove" v-on:click="removeTask(todo)">x</span>
         </template>
       </div>
     </div>
