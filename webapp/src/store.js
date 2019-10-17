@@ -27,13 +27,20 @@ export default new Vuex.Store({
   },
   mutations: {
     addToDo(state, todo) {
-      state.todos = [...state.todos, {...todo, done: false, id: state.todos.length+1}];
+      state.todos = [
+        ...state.todos,
+        { ...todo, done: false, id: state.todos.length + 1 }
+      ];
     },
     checkToDo(state, todo) {
-      state.todos = state.todos.map((currentValue) => {return todo.id == currentValue.id ? todo : currentValue} )
+      state.todos = state.todos.map(currentValue => {
+        return todo.id == currentValue.id ? todo : currentValue;
+      });
     },
     removeToDo(state, todo) {
-      state.todos = state.todos.filter(currentValue => currentValue.id != todo.id)
+      state.todos = state.todos.filter(
+        currentValue => currentValue.id != todo.id
+      );
     }
   },
   actions: {
@@ -41,10 +48,10 @@ export default new Vuex.Store({
       commit("addToDo", toDo);
     },
     checkToDo({ commit }, toDo) {
-      commit("checkToDo", toDo)
+      commit("checkToDo", toDo);
     },
     removeToDo({ commit }, toDo) {
-      commit("removeToDo", toDo)
-    }    
+      commit("removeToDo", toDo);
+    }
   }
 });
