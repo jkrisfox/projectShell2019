@@ -34,12 +34,22 @@ export default new Vuex.Store({
 
     removeToDo(state, todo_id) {
       debugger;
-       for (var i = 0; i <= state.todos.length; i++){
-           state.todos = state.todos.filter(function(todo){
+      /*state.todos = state.todos.filter(function(todo){
              return todo_id != todo.id;
-           });
-          }
+           });*/
+           for (var i = 0; i < state.todos.length; i++){
+             if (state.todos[i].id == todo_id){
+               state.todos.splice(i,1);
+             }
+           }
+    },
+    DoneToDo(state, todo_done, todo_id){
+      for (var i = 0; i < state.todos.length; i++){
+        if (state.todos[i].id == todo_id){
+          state.todos[i].done = true;
         }
+      }
+    }
   },
 
   actions: {
@@ -48,6 +58,10 @@ export default new Vuex.Store({
       commit("addToDo", toDo);
     },
     removeToDo({ commit }, toDo) {
+      debugger;
+      commit("removeToDo", toDo);
+    },
+    DoneToDo({ commit }, toDo) {
       debugger;
       commit("removeToDo", toDo);
     }
