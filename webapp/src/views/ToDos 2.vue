@@ -42,13 +42,8 @@ export default {
     };
   },
   computed: {
-    todos: {
-      get: function(){
-        return this.$store.state.todos;
-      },
-      set: function(newValue) {
-        this.$store.state.todos = newValue
-      }
+    todos() {
+      return this.$store.state.todos;
     }
   },
   components: {
@@ -56,26 +51,11 @@ export default {
   },
   methods: {
     onSubmit () {
-      this.$store.dispatch('createToDo', this.newTodo).then(() => {
+      this.$store.dispatch('addToDo', this.newTodo).then(() => {
         this.newTodo.title = null;
       })
-    },
-  },
-  mounted() {
-    console.log("mounting app")
-    if (localStorage.getItem('todos')){
-      this.todos = JSON.parse(localStorage.getItem('todos'));
-    }    
-  },
-  watch: {
-    todos: {
-      handler() {
-        localStorage.setItem('todos', JSON.stringify(this.todos));
-      },
-      deep: true,
-    },
+    }
   }
-
 };
 </script>
 <style lang="scss" scoped>

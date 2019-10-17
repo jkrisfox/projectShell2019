@@ -4,7 +4,6 @@
     <span class="todo-title">
       {{ todo.title }}
     </span>
-    <b-button v-on:click="onDeleteClick">Delete</b-button>
   </div>
 </template>
 
@@ -17,11 +16,6 @@ export default {
       default: () => {
         return {};
       }
-    }
-  },
-  methods: {
-    onDeleteClick(){
-      this.$store.dispatch("deleteToDo", this.todo.id)
     }
   }
 };

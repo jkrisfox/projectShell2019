@@ -1,1 +1,1 @@
-This repository will be where the initial project files will get placed. 
+Angelo De Laurentis Completed Lab for 10/17/2019 for CSC307 Proffessor Fox
