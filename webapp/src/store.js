@@ -34,7 +34,7 @@ export default new Vuex.Store({
     },
     checkBoxToDo(state, todo) {
       //console.log(todo.done);
-      todo.done = !todo.done;
+      todo.done = todo.done;
     }
   },
   actions: {
