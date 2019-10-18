@@ -6,7 +6,9 @@ module.exports = {
       "jest-transform-stub",
     "^.+\\.(jsx|js)$": "babel-jest"
   },
-  transformIgnorePatterns: ["/node_modules/(?!(babel-jest|jest-vue-preprocessor)/)"],
+  transformIgnorePatterns: [
+    "/node_modules/(?!(babel-jest|jest-vue-preprocessor)/)"
+  ],
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/src/$1"
   },
