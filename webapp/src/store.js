@@ -29,10 +29,12 @@ export default new Vuex.Store({
     addToDo(state, todo) {
       state.todos = [...state.todos, {...todo, done: false, id: state.todos.length+1}];
     },
-    setToDo(state, todo) {
-      //var index = state.todos.indexOf(todo);
-      state.todos[todo.id - 1].done = todo.done;
-      console.log(state.todos[todo.id - 1].done);
+    removeToDo(state, toDo) {
+      state.todos.splice(toDo.id - 1, 1);
+    },
+    setToDo(state, toDo) {
+      state.todos[toDo.id - 1].done = toDo.done;
+      console.log(state.todos[toDo.id - 1].done);
     }
   },
   actions: {
@@ -43,6 +45,10 @@ export default new Vuex.Store({
     setToDo({ commit }, toDo) {
       debugger;
       commit("setToDo", toDo);
+    },
+    removeToDo({ commit }, toDo) {
+      debugger;
+      commit("removeToDo", toDo);
     }
   }
 });
