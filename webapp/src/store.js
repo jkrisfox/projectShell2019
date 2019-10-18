@@ -30,11 +30,13 @@ export default new Vuex.Store({
       state.todos = [...state.todos, {...todo, done: false, id: state.todos.length+1}];
     },
     removeToDo(state, toDo) {
-      state.todos.splice(toDo.id - 1, 1);
+      var index = state.todos.indexOf(toDo);
+      state.todos.splice(index, 1);
     },
     setToDo(state, toDo) {
-      state.todos[toDo.id - 1].done = toDo.done;
-      console.log(state.todos[toDo.id - 1].done);
+      var index = state.todos.indexOf(toDo);
+      state.todos[index].done = toDo.done;
+      console.log(state.todos[index].done);
     }
   },
   actions: {
