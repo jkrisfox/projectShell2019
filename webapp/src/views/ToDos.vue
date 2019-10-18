@@ -37,7 +37,12 @@ export default {
   data: function() {
     return {
       newTodo: {
-        title: null
+        title: null,
+        done: false
+      },
+      Todo:{
+        title: null,
+        done: false
       }
     };
   },
@@ -51,10 +56,11 @@ export default {
   },
   methods: {
     onSubmit () {
+      debugger;
       this.$store.dispatch('addToDo', this.newTodo).then(() => {
         this.newTodo.title = null;
-      })
-    }
+      });
+    },
   }
 };
 </script>

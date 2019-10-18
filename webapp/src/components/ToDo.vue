@@ -1,9 +1,10 @@
 <template>
   <div class="todo">
-    <b-checkbox v-model="todo.done" />
+    <input type="checkbox" v-bind:checked="todo.done" v-on:click="complete(todo)"/>
     <span class="todo-title">
       {{ todo.title }}
     </span>
+    <button v-on:click="removeTodo(todo)">x</button>
   </div>
 </template>
 
@@ -17,6 +18,20 @@ export default {
         return {};
       }
     }
+  },
+  computed: {
+    todos() {
+      return this.$store.state.todos;
+    }
+  },
+  methods: {
+    complete(todo) {
+      this.$store.dispatch('markToDo', todo);
+  },
+    removeTodo(todo) {
+      this.$store.dispatch('deleteToDo', todo);
+    }
   }
 };
+
 </script>
