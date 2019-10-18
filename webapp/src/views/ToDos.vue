@@ -9,11 +9,6 @@
       <div class="column is-half">
         <template v-for="todo in todos">
           <ToDo :key="todo.id" :todo="todo"/>
-          <button v-on:click="deleteToDo(todo.id)" class="button is-link" v-bind:key="todo">Delete</Button>
-        </template>
-        <template v-for="todo in todos">
-          {{ todo }}
-          <button v-on:click="deleteToDo(todo.id)" class="button is-link" v-bind:key="todo">Delete</Button>
         </template>
       </div>
     </div>
@@ -37,7 +32,6 @@
 
 <script>
 import ToDo from "@/components/ToDo.vue";
-import { mapState, mapActions } from 'vuex'
 
 export default {
   name: "ToDos",
@@ -49,9 +43,6 @@ export default {
     };
   },
   computed: {
-    ...mapState([
-      'todo'
-    ]),
     todos() {
       return this.$store.state.todos;
     }
@@ -60,16 +51,10 @@ export default {
     ToDo
   },
   methods: {
-    ...mapActions([
-      'deleteToDo'
-    ]),
     onSubmit () {
       this.$store.dispatch('addToDo', this.newTodo).then(() => {
         this.newTodo.title = null;
       })
-    },
-    deleteToDo: function(todo) {
-      this.deleteToDo(todo)
     },
   }
 };

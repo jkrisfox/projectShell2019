@@ -29,8 +29,11 @@ export default new Vuex.Store({
     addToDo(state, todo) {
       state.todos = [...state.todos, {...todo, done: false, id: state.todos.length+1}];
     },
-    DELETE_TO_DO: (state, todo) => {
-      state.todos.splice(todo, 1)
+    persistState(state) {
+      state.todos = state.todos.map(t => t);
+    },
+    deleteToDo: (state, todo) => {
+      state.todos = state.todos.filter(t => t !== todo);
     }
   },
   actions: {
@@ -38,9 +41,13 @@ export default new Vuex.Store({
       debugger;
       commit("addToDo", toDo);
     },
-    deleteToDo: (context, todo) => {
+    deleteToDo: ({ commit }, todo) => {
       debugger
-      context.commit("DELETE_TO_DO", todo);
+      commit("deleteToDo", todo);
+    },
+    persistState: ({ commit }, todo) => {
+      debugger
+      commit("persistState", todo);
     }
   }
 });
