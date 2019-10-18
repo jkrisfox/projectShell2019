@@ -55,6 +55,14 @@ export default {
         this.newTodo.title = null;
       })
     }
+  },
+  watch: {
+    todos: {
+      deep: true,
+      handler: function() {
+        this.$store.dispatch('changeOnOff', this.todos);
+      }
+    }
   }
 };
 </script>
