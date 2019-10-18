@@ -28,12 +28,29 @@ export default new Vuex.Store({
   mutations: {
     addToDo(state, todo) {
       state.todos = [...state.todos, {...todo, done: false, id: state.todos.length+1}];
+    },
+    removeToDo(state, toDo) {
+      var index = state.todos.indexOf(toDo);
+      state.todos.splice(index, 1);
+    },
+    setToDo(state, toDo) {
+      var index = state.todos.indexOf(toDo);
+      state.todos[index].done = toDo.done;
+      console.log(state.todos[index].done);
     }
   },
   actions: {
     addToDo({ commit }, toDo) {
       debugger;
       commit("addToDo", toDo);
+    },
+    setToDo({ commit }, toDo) {
+      debugger;
+      commit("setToDo", toDo);
+    },
+    removeToDo({ commit }, toDo) {
+      debugger;
+      commit("removeToDo", toDo);
     }
   }
 });
