@@ -28,12 +28,27 @@ export default new Vuex.Store({
   mutations: {
     addToDo(state, todo) {
       state.todos = [...state.todos, {...todo, done: false, id: state.todos.length+1}];
+    },
+    onToggle(state, todo) {
+      state.todos = state.todos.map(t => t.id === todo.id ? todo : t);
+    },
+    removeToDo(state, todo) {
+      state.todos = state.todos.filter(t => t.id != todo.id);
     }
+
   },
   actions: {
     addToDo({ commit }, toDo) {
       debugger;
       commit("addToDo", toDo);
+    },
+    onToggle({ commit }, toDo) {
+      debugger;
+      commit("onToggle", toDo);
+    },
+    removeToDo({ commit }, toDo) {
+      debugger;
+      commit("removeToDo", toDo)
     }
   }
 });
