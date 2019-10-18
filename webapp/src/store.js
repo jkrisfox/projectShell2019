@@ -28,12 +28,23 @@ export default new Vuex.Store({
   mutations: {
     addToDo(state, todo) {
       state.todos = [...state.todos, {...todo, done: false, id: state.todos.length+1}];
+    },
+    toggleCheck(state, todo) {
+      // Even with no code here my state still gets modified?
+    },
+    deleteToDo(state, todo) {
+      state.todos.splice(todo.id - 1, todo.id - 1);
     }
   },
   actions: {
     addToDo({ commit }, toDo) {
-      debugger;
       commit("addToDo", toDo);
+    },
+    toggleCheck({ commit }, values) {
+      commit("toggleCheck", values);
+    },
+    deleteToDo( {commit}, values) {
+      commit("deleteToDo", values);
     }
   }
 });
