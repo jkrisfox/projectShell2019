@@ -27,12 +27,23 @@ export default new Vuex.Store({
     ]
   },
   mutations: {
-    addToDo(state, todo) {
+    addToDo(state, todo, e) {
       state.todos = [...state.todos, {...todo, done: false, id: state.curSize}];
       state.curSize = state.curSize + 1;
     },
     toggleToDo(state, todo) {
       // todo.done = todo.done;
+      var temp = [];
+      var t;
+      for (t in state.todos) {
+        if (state.todos[t].id == todo.id) {
+          temp.push(todo);
+        }
+        else {
+          temp.push(state.todos[t]);
+        }
+      }
+      state.todos = temp;
     },
     removeToDo(state, todo) {
       var temp = [];
@@ -51,7 +62,7 @@ export default new Vuex.Store({
       commit("addToDo", toDo);
     },
     toggleToDo({ commit }, toDo) {
-      //debugger;
+      debugger;
       commit("toggleToDo", toDo);
     },
     removeToDo({ commit }, toDo) {
