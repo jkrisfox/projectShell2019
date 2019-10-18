@@ -10,6 +10,7 @@
         <template v-for="todo in todos">
           <ToDo :key="todo.id" :todo="todo" />
         </template>
+        
       </div>
     </div>
     <section class="newTodo columns is-centered">
