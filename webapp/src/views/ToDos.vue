@@ -8,7 +8,7 @@
     <div class="columns is-centered">
       <div class="column is-half">
         <template v-for="todo in todos">
-          <ToDo :key="todo.id" :todo="todo" />
+          <ToDo :key="todo.id" :todo="todo" @delete="deleteToDo(todo)" @check="switchDone(todo)"/>
         </template>
       </div>
     </div>
@@ -54,6 +54,12 @@ export default {
       this.$store.dispatch('addToDo', this.newTodo).then(() => {
         this.newTodo.title = null;
       })
+    },
+    switchDone : function(toDo) {
+      this.$store.dispatch('switchDone', toDo);
+    },
+    deleteToDo : function(toDo) {
+      this.$store.dispatch('removeToDo', toDo);
     }
   }
 };
