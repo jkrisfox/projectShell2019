@@ -63,7 +63,7 @@ export default new Vuex.Store({
     },
     DoneToDo({ commit }, toDo) {
       debugger;
-      commit("removeToDo", toDo);
+      commit("DoneToDo", toDo);
     }
   }
 
