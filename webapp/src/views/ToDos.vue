@@ -52,9 +52,12 @@ export default {
   methods: {
     onSubmit () {
       this.$store.dispatch('addToDo', this.newTodo).then(() => {
+        // debugger
         this.newTodo.title = null;
       })
     }
+
+
   }
 };
 </script>

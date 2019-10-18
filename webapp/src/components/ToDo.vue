@@ -1,9 +1,12 @@
 <template>
+ <!-- v-model="todo.done"  -->
   <div class="todo">
-    <b-checkbox v-model="todo.done" />
+    <input type="checkbox" v-bind:checked="todo.done" v-on:click="checkToDo(todo)" />
     <span class="todo-title">
       {{ todo.title }}
     </span>
+    <button v-on:click="deleteToDo(todo)"> Delete </button>
+
   </div>
 </template>
 
@@ -17,6 +20,20 @@ export default {
         return {};
       }
     }
+  },
+  methods: {
+    deleteToDo (todo) {
+        debugger
+        this.$store.dispatch('removeToDo', todo)    
+    },
+
+    checkToDo (todo) {
+        debugger
+        this.$store.dispatch('tickToDo', todo)
+      
+    }
+  
   }
+
 };
 </script>
