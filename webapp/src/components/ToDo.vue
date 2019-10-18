@@ -3,6 +3,9 @@
     <b-checkbox v-model="todo.done" />
     <span class="todo-title">
       {{ todo.title }}
+    <b-button size="is-small" type = "is-danger" icon-right="delete">
+      hello
+      </b-button>
     </span>
   </div>
 </template>

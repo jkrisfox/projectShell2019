@@ -9,13 +9,12 @@
       <div class="column is-half">
         <template v-for="todo in todos">
           <ToDo :key="todo.id" :todo="todo" />
-          <span class="remove" v-on:click="removeTask(todo)">x</span>
         </template>
       </div>
     </div>
     <section class="newTodo columns is-centered">
       <div class="column is-half">
-        <h5 class="title is-5">TESTNew ToDo</h5>
+        <h5 class="title is-5">New ToDo</h5>
         <form v-on:submit.prevent="onSubmit">
           <b-field label="Title">
             <b-input v-model="newTodo.title"/>
