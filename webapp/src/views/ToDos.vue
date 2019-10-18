@@ -42,8 +42,13 @@ export default {
     };
   },
   computed: {
-    todos() {
-      return this.$store.state.todos;
+    todos: {
+      get: function() {
+        return this.$store.state.todos;
+      },
+      set: function(newVal) {
+        this.$store.state.todos = newVal
+      },
     }
   },
   components: {
@@ -54,7 +59,20 @@ export default {
       this.$store.dispatch('addToDo', this.newTodo).then(() => {
         this.newTodo.title = null;
       })
-    }
+    },
+  },
+  mounted() {
+  console.log('App mounted!');
+  if (localStorage.getItem('todos')) this.todos = JSON.parse(localStorage.getItem('todos'));
+  },
+  watch: {
+    todos: {
+      handler() {
+        console.log('Todos changed!');
+        localStorage.setItem('todos', JSON.stringify(this.todos));
+      },
+      deep: true,
+      },
   }
 };
 </script>
