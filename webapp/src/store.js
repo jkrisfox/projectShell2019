@@ -33,7 +33,7 @@ export default new Vuex.Store({
       // Even with no code here my state still gets modified?
     },
     deleteToDo(state, todo) {
-      state.todos.splice(todo.id - 1, todo.id - 1);
+      state.todos = state.todos.filter(item => item.id != todo.id);
     }
   },
   actions: {
