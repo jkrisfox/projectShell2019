@@ -9,7 +9,7 @@
             </span>
         </div>
         <div class="is-pulled-right">
-          <b-button variant="outline-secondary" size="is-small" v-on:click="removeTodo">X</b-button>
+          <b-button variant="outline-secondary" size="is-small" type="is-danger" outlined v-on:click="removeTodo">X</b-button>
         </div>
       </div>
     </div>
