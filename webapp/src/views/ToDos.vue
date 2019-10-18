@@ -8,7 +8,7 @@
     <div class="columns is-centered">
       <div class="column is-half">
         <template v-for="todo in todos">
-          <ToDo :key="todo.id" :todo="todo" />
+          <ToDo :key="todo.id" :todo="todo"/>
         </template>
       </div>
     </div>
@@ -32,13 +32,14 @@
 
 <script>
 import ToDo from "@/components/ToDo.vue";
+
 export default {
   name: "ToDos",
   data: function() {
     return {
       newTodo: {
         title: null
-      }
+      },
     };
   },
   computed: {
@@ -54,7 +55,7 @@ export default {
       this.$store.dispatch('addToDo', this.newTodo).then(() => {
         this.newTodo.title = null;
       })
-    }
+    },
   }
 };
 </script>
