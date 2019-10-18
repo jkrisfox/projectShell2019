@@ -12,17 +12,7 @@ const vuexPersist = new VuexPersist({
 export default new Vuex.Store({
     plugins: [vuexPersist.plugin],
     state: {
-        todos: [{
-                id: 1,
-                done: false,
-                title: "Test Todo1"
-            },
-            {
-                id: 2,
-                done: false,
-                title: "Test Todo2"
-            }
-        ]
+        todos: []
     },
     mutations: {
         addToDo(state, todo) {
@@ -31,13 +21,20 @@ export default new Vuex.Store({
         },
         markToDo(state, todo) {
             debugger;
-            // state.todos[todo.id].done = !todo.done
-            state.todos[todo.id - 1].done = !state.todos[todo.id - 1].done;
+            for (let i = 0; i < state.todos.length; i++) {
+                if (state.todos[i] === todo) {
+                    state.todos[i].done = !todo.done
+                }
+            }
         },
         deleteToDo(state, todo) {
             debugger;
             // state.todos[todo.id].done = !todo.done
-            state.todos.splice(todo.id - 1, 1)
+            for (let i = 0; i < state.todos.length; i++) {
+                if (state.todos[i] === todo) {
+                    state.todos.splice(i, 1)
+                }
+            }
         }
     },
     actions: {
