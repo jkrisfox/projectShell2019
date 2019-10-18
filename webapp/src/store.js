@@ -12,6 +12,7 @@ const vuexPersist = new VuexPersist({
 export default new Vuex.Store({
   plugins: [vuexPersist.plugin],
   state: {
+    curSize: 3,
     todos: [
       {
         id: 1,
@@ -26,14 +27,47 @@ export default new Vuex.Store({
     ]
   },
   mutations: {
-    addToDo(state, todo) {
-      state.todos = [...state.todos, {...todo, done: false, id: state.todos.length+1}];
+    addToDo(state, todo, e) {
+      state.todos = [...state.todos, {...todo, done: false, id: state.curSize}];
+      state.curSize = state.curSize + 1;
+    },
+    toggleToDo(state, todo) {
+      // todo.done = todo.done;
+      var temp = [];
+      var t;
+      for (t in state.todos) {
+        if (state.todos[t].id == todo.id) {
+          temp.push(todo);
+        }
+        else {
+          temp.push(state.todos[t]);
+        }
+      }
+      state.todos = temp;
+    },
+    removeToDo(state, todo) {
+      var temp = [];
+      var t;
+      for (t in state.todos) {
+        if (state.todos[t].id != todo.id) {
+          temp.push(state.todos[t]);
+        }
+      }
+      state.todos = temp;
     }
   },
   actions: {
     addToDo({ commit }, toDo) {
       debugger;
       commit("addToDo", toDo);
+    },
+    toggleToDo({ commit }, toDo) {
+      debugger;
+      commit("toggleToDo", toDo);
+    },
+    removeToDo({ commit }, toDo) {
+      debugger;
+      commit("removeToDo", toDo);
     }
   }
 });
