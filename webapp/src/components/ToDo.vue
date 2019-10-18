@@ -1,6 +1,6 @@
 <template>
   <div class="todo">
-    <b-checkbox v-model="todo.done" />
+    <b-checkbox v-model="todo.done" v-on:input="onCheck"/>
     <span class="todo-title">
       {{ todo.title }}
     </span>
@@ -16,6 +16,12 @@ export default {
       default: () => {
         return {};
       }
+    }
+  },
+  methods: {
+    onCheck () {
+      console.log("onCheck");
+      this.$store.dispatch("setToDo", this.todo)
     }
   }
 };
