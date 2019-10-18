@@ -42,8 +42,13 @@ export default {
     };
   },
   computed: {
-    todos() {
-      return this.$store.state.todos;
+    todos: {
+      get: function() {
+        return this.$store.state.todos;
+      },
+      set: function(newValue) {
+        return this.$store.state.todos = newValue;
+      },
     }
   },
   components: {
@@ -54,6 +59,23 @@ export default {
       this.$store.dispatch('addToDo', this.newTodo).then(() => {
         this.newTodo.title = null;
       })
+    }
+  },
+  mounted() {
+    /* whenever page loads, gets the todos array from localStorage */
+    if (localStorage.getItem('todos')) {
+      this.todos = JSON.parse(localStorage.getItem('todos'));
+    }
+  },
+
+  watch: {
+    todos: {
+      handler() {
+        /* sets the todos to be a json formatted string of the current "state"
+ * of todos */
+        localStorage.setItem('todos', JSON.stringify(this.todos));
+      },
+      deep: true
     }
   }
 };
