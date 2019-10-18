@@ -1,6 +1,6 @@
 <template>
   <div class="todo">
-    <b-checkbox v-model="todo.done" v-on:inputs= "todo.done" />
+    <b-checkbox v-model="todo.done" v-on:input = " onDone($event)"/>
     <b-button v-on:click="onDelete">delete</b-button>
     <span class="todo-title">
       {{ todo.title }}
@@ -23,6 +23,10 @@ export default {
     onDelete () {
       this.$store.dispatch('removeToDo', this.todo.id)
       },
+    onDone(event){
+      console.log(event)
+      this.$store.dispatch('DoneToDo', this.todo)
+     }
     },
 };
 </script>

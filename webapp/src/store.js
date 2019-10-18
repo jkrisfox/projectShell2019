@@ -43,10 +43,10 @@ export default new Vuex.Store({
              }
            }
     },
-    DoneToDo(state, todo_done, todo_id){
+    DoneToDo(state, todo){
       for (var i = 0; i < state.todos.length; i++){
-        if (state.todos[i].id == todo_id){
-          state.todos[i].done = true;
+        if (state.todos[i].id == todo.id){
+          state.todos[i].done = todo.done;
         }
       }
     }
