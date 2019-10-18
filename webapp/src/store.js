@@ -13,16 +13,7 @@ export default new Vuex.Store({
   plugins: [vuexPersist.plugin],
   state: {
     todos: [
-      {
-        id: 1,
-        done: false,
-        title: "Test Todo1"
-      },
-      {
-        id: 2,
-        done: false,
-        title: "Test Todo2"
-      }
+      
     ]
   },
   mutations: {
