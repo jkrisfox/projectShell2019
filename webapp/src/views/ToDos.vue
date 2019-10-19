@@ -54,9 +54,9 @@ export default {
       this.$store.dispatch('addToDo', this.newTodo).then(() => {
         this.newTodo.title = null;
       })
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>
-</style>>
+</style>
