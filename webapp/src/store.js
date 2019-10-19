@@ -27,20 +27,19 @@ export default new Vuex.Store({
   },
   mutations: {
     addToDo(state, todo) {
-      state.todos = [...state.todos, {...todo, done: false, id: state.todos.length + 1}];
+      state.todos.push({...todo, done: false, id: state.todos.length + 1});
     },
-    changeOnOff(state, todo) {
-      // state.todos = [...state.todos, {...todo, done: false, id: state.todos.length + 1}];
-      console.log(state, todo);
+    checkboxChange(state, payload) {
+      state.todos.find(t => t.id === payload.id).done = payload.value;
     },
+    remove(state, payload) {
+      const index = state.todos.findIndex(t => t.id === payload.id);
+      state.todos.splice(index, 1);
+    }
   },
   actions: {
     addToDo({ commit }, toDo) {
-      debugger;
       commit("addToDo", toDo);
-    },
-    changeOnOff({ commit }, toDo) {
-      commit("changeOnOff", toDo);
     },
   }
 });

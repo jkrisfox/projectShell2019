@@ -54,17 +54,9 @@ export default {
       this.$store.dispatch('addToDo', this.newTodo).then(() => {
         this.newTodo.title = null;
       })
-    }
+    },
   },
-  watch: {
-    todos: {
-      deep: true,
-      handler: function() {
-        this.$store.dispatch('changeOnOff', this.todos);
-      }
-    }
-  }
 };
 </script>
 <style lang="scss" scoped>
-</style>>
+</style>
