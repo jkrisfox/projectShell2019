@@ -1,10 +1,12 @@
 <template>
   <div class="todo">
-    <b-checkbox v-on:input="updateToDo" v-model="todo.done" />
+    <b-checkbox v-model="todo.done" v-on:input="handleCheck"/>
     <span class="todo-title">
       {{ todo.title }}
     </span>
-    <b-button v-on:click.stop.prevent="removeToDo" type="is-danger" icon-right="delete">Delete</b-button>
+    <span class="todo-acton">
+      <b-button v-on:click="handleDelete">Delete</b-button>
+    </span>
   </div>
 </template>
 
@@ -20,11 +22,11 @@ export default {
     }
   },
   methods: {
-    updateToDo () {
-      this.$store.dispatch('updateToDo', this.todo);
+    handleCheck: function(value) {
+      this.$store.dispatch("updateTodo", {...this.todo, done: value});
     },
-    removeToDo () {
-      this.$store.dispatch('removeToDo', this.todo);
+    handleDelete: function() {
+      this.$store.dispatch("deleteTodo", this.todo);
     }
   }
 };
