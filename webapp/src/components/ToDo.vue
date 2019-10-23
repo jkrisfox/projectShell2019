@@ -21,7 +21,7 @@ export default {
   },
   methods: {
     toggleDone(e) {
-      console.log(e);
+      this.todo.done = e;
       this.$store.dispatch("toggleToDo", this.todo);
     },
     removeItem() {

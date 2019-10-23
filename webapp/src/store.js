@@ -32,7 +32,6 @@ export default new Vuex.Store({
       state.curSize = state.curSize + 1;
     },
     toggleToDo(state, todo) {
-      // todo.done = todo.done;
       var temp = [];
       var t;
       for (t in state.todos) {
