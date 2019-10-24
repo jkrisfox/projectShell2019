@@ -2,11 +2,20 @@
   <div id="app">
     <b-navbar class="nav">
       <template slot="brand">
+<<<<<<< HEAD
+        <router-link class="navbar-item" to="/" exact>
+          ExampleApp
+        </router-link>
+=======
         <router-link class="navbar-item" to="/" exact>ExampleApp</router-link>
+>>>>>>> 10fc8687561adf42e9906f3b66dfc87df03f59d9
       </template>
       <template slot="start">
         <router-link class="navbar-item" to="/" exact>Home</router-link>
         <router-link class="navbar-item" to="/about" exact>About</router-link>
+<<<<<<< HEAD
+        <router-link class="navbar-item" to="/todos" exact>ToDos</router-link>
+=======
       </template>
       <template slot="end">
         <div class="navbar-item">
@@ -25,6 +34,7 @@
             Logout
           </button>
         </div>
+>>>>>>> 10fc8687561adf42e9906f3b66dfc87df03f59d9
       </template>
     </b-navbar>
     <b-modal
