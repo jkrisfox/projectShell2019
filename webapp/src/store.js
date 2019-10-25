@@ -23,6 +23,9 @@ export const mutations = {
   },
   todosLoaded(state, todos) {
     state.todos = todos;
+  },
+  categoriesLoaded(state, categories) {
+    state.categories = categories;
   }
 };
 
@@ -57,6 +60,11 @@ export const actions = {
   loadToDos({ commit }) {
     return axios.get("/api/todos").then(response => {
       commit("todosLoaded", response.data);
+    });
+  },
+  loadCategories({ commit }) {
+    return axios.get("/api/categories").then(response => {
+      commit("categoriesLoaded", response.data);
     });
   },
   checkLoggedIn({ commit }) {

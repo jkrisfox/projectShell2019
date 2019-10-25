@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import {
   Entity,
   Column,
@@ -5,6 +6,7 @@ import {
   ManyToOne,
 } from 'typeorm';
 import User from './user';
+import Category from './category';
 
 @Entity()
 export default class ToDo {
@@ -19,4 +21,7 @@ export default class ToDo {
 
   @ManyToOne(() => User, (user) => user.todos)
   user
+
+  @ManyToOne(() => Category, (category) => category.name)
+  category
 }
