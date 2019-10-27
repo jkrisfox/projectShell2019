@@ -10,5 +10,5 @@ export default class Category {
   id
 
   @Column({ type: 'varchar' })
-  title
+  name
 }
