@@ -2,7 +2,7 @@
   <div class="todos">
     <div class="columns is-centered">
       <div class="column is-half is-block">
-        <h5 class="is-5 title">My ToDos</h5>
+        <h5 class="is-5 title">Groceries</h5>
       </div>
     </div>
     <div class="columns is-centered">
