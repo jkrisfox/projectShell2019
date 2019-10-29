@@ -77,6 +77,7 @@ export const actions = {
 export default new Vuex.Store({
   state: {
     todos: [],
+    categories: [],
     loginState: {
       loggedIn: false
     },

@@ -7,8 +7,11 @@
     </div>
     <div class="columns is-centered">
       <div class="column is-half">
-        <template v-for="todo in todos">
-          <ToDo :key="todo.id" :todo="todo" />
+        <template v-for="category in categories">
+          <h6 class="is-6 title" v-bind:key="category.id"> {{category.name}} </h6>
+          <template v-for="todo in categorized(category.id)" >
+            <ToDo :key="todo.id" :todo="todo" />
+          </template>
         </template>
       </div>
     </div>
@@ -20,7 +23,9 @@
             <b-input v-model="newTodo.title" />
           </b-field>
           <b-field label="Category">
-            <b-select v-model="newTodo.category" placeholder="Select a category">
+            <b-select v-model="newTodo.category"
+              placeholder="Select a category"
+            >
               <option
                 v-for="category in categories"
                 :value="category.id"
@@ -66,10 +71,14 @@ export default {
   },
   methods: {
     onSubmit() {
+      if (this.newTodo.category == null) return;
       this.$store.dispatch("addToDo", this.newTodo).then(() => {
         this.newTodo.title = null;
         this.newTodo.category = null;
       });
+    },
+    categorized(id) {
+      return this.$store.state.todos.filter((todo) => todo.category.id === id);
     }
   },
   mounted: function() {
