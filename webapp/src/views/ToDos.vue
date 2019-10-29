@@ -7,9 +7,9 @@
     </div>
     <div class="columns is-centered">
       <div class="column is-half">
-        <template v-for="todo in todos">
-          <ToDo :key="todo.id" :todo="todo" />
-        </template>
+          <template v-for="todo in todos" >
+            <ToDo :key="todo.id" :todo="todo" />
+          </template>
       </div>
     </div>
     <section class="newTodo columns is-centered">
@@ -18,6 +18,19 @@
         <form v-on:submit.prevent="onSubmit">
           <b-field label="Title">
             <b-input v-model="newTodo.title" />
+          </b-field>
+          <b-field label="Category">
+            <b-select v-model="newTodo.category"
+              placeholder="Select a category"
+            >
+              <option
+                v-for="category in categories"
+                :value="category.id"
+                :key="category.id"
+              >
+                {{ category.name }}
+              </option>
+            </b-select>
           </b-field>
           <b-field>
             <div class="control is-block">
@@ -37,13 +50,17 @@ export default {
   data: function() {
     return {
       newTodo: {
-        title: null
+        title: null,
+        category: null
       }
     };
   },
   computed: {
     todos() {
       return this.$store.state.todos;
+    },
+    categories() {
+      return this.$store.state.categories;
     }
   },
   components: {
@@ -51,16 +68,22 @@ export default {
   },
   methods: {
     onSubmit() {
+      if (this.newTodo.category == null) return;
       this.$store.dispatch("addToDo", this.newTodo).then(() => {
         this.newTodo.title = null;
+        this.newTodo.category = null;
       });
-    }
+    },
   },
   mounted: function() {
-    this.$store.dispatch("loadToDos").catch(() => {
+    this.$store.dispatch("loadCategories").catch(() => {
       // if we are not logged in redirect home
       this.$router.push("/");
-    })
+    });
+    this.$store.dispatch("loadToDos").then(()=>{}).catch(() => {
+      // if we are not logged in redirect home
+      this.$router.push("/");
+    });
   }
 };
 </script>

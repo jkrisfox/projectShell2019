@@ -8,13 +8,10 @@ import {
 import ToDo from './todo';
 
 @Entity()
-export default class Catagory {
+export default class Category {
   @PrimaryGeneratedColumn()
   id
 
   @Column({ type: 'varchar' })
-  title
-
-  @OneToMany(() => ToDo, (todo) => todo.catagory)
-  todos
+  name
 }
