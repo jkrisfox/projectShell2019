@@ -1,8 +1,14 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import VuexPersist from "vuex-persist";
 import axios from "axios";
 
 Vue.use(Vuex);
+
+const vuexPersist = new VuexPersist({
+  key: "project-template",
+  storage: window.localStorage
+});
 
 export const mutations = {
   login: function(state) {
@@ -10,6 +16,12 @@ export const mutations = {
   },
   logout: function(state) {
     state.loginState = { ...state.loginState, loggedIn: false };
+  },
+  addToDo(state, todo) {
+    state.todos = [
+      ...state.todos,
+      { ...todo, done: false, id: state.todos.length + 1 }
+    ];
   }
 };
 
@@ -24,11 +36,17 @@ export const actions = {
     return axios.get("/api/logout").then(() => {
       commit("logout");
     });
+  },
+  addToDo({ commit }, toDo) {
+    debugger;
+    commit("addToDo", toDo);
   }
 };
 
 export default new Vuex.Store({
+  plugins: [vuexPersist.plugin],
   state: {
+    todos: [],
     loginState: {
       loggedIn: false
     }
