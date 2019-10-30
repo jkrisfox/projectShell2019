@@ -16,16 +16,6 @@ router.route('/categories')
       res.send(found);
     });
     */
-  })
-  .post((req, res) => {
-    const { user, name } = req.body;
-    const manager = getManager();
-    const todo = manager.create(Category, { done, title });
-    todo.user = req.user;
-    todo.category = category;
-    manager.save(todo).then((savedTodo) => {
-      res.send(savedTodo);
-    });
   });
 router.route('/categories/:id')
   .all(isAuthenticated)
