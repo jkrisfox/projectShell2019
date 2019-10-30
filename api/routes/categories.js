@@ -8,17 +8,30 @@ const router = Router();
 router.route('/categories')
   .all(isAuthenticated)
   .get((req, res) => {
+    res.send(req.user.categories);
+    /*
     getRepository(Category)
     .find()
     .then((found) => {
       res.send(found);
+    });
+    */
+  })
+  .post((req, res) => {
+    const { user, name } = req.body;
+    const manager = getManager();
+    const todo = manager.create(Category, { done, title });
+    todo.user = req.user;
+    todo.category = category;
+    manager.save(todo).then((savedTodo) => {
+      res.send(savedTodo);
     });
   });
 router.route('/categories/:id')
   .all(isAuthenticated)
   .all((req, res, next) => {
     getRepository(Category).findOneOrFail(
-      { where: { id: req.params.id } },
+      { where: { id: req.params.id, user: req.user } },
     ).then((_foundCategory) => {
       req.category = _foundCategory;
       next();

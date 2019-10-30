@@ -9,7 +9,7 @@
       <div class="column is-half">
         <template v-for="category in categories">
           <h6 class="is-6 title" v-bind:key="category.id"> {{category.name}} </h6>
-          <template v-for="todo in categorized(category.id)" >
+          <template v-for="todo in category.todos" >
             <ToDo :key="todo.id" :todo="todo" />
           </template>
         </template>
@@ -64,7 +64,7 @@ export default {
     },
     categories() {
       return this.$store.state.categories;
-    }
+    },
   },
   components: {
     ToDo
@@ -75,6 +75,7 @@ export default {
       this.$store.dispatch("addToDo", this.newTodo).then(() => {
         this.newTodo.title = null;
         this.newTodo.category = null;
+        this.$store.dispatch("loadCategories");
       });
     },
     categorized(id) {

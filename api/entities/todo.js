@@ -22,6 +22,6 @@ export default class ToDo {
   @ManyToOne(() => User, (user) => user.todos)
   user
 
-  @ManyToOne(() => Category, (category) => category.id, {eager: true})
+  @ManyToOne(() => Category, (category) => category.id)
   category
 }
