@@ -7,21 +7,35 @@
     </div>
     <div class="columns is-centered">
       <div class="column is-half">
-        <template v-for="todo in todos">
-          <ToDo :key="todo.id" :todo="todo" />
+        <template v-for="category in categories">
+            <h5 class="is-5 title">{{category.name}}</h5>
+            <template v-for="todo in todos">
+              <ToDo v-if="todo.category.id === category.id" :key="todo.id" :todo="todo" />
+            </template>
         </template>
+        
       </div>
     </div>
+    
     <section class="newTodo columns is-centered">
       <div class="column is-half">
         <h5 class="title is-5">New ToDo</h5>
         <form v-on:submit.prevent="onSubmit">
+          <b-field label="Category">
+            <b-select v-model="newTodo.category">
+              <template v-for="category in categories">
+                <option :key="category.id" :value="category">
+                  {{category.name}}
+                </option>
+              </template>
+            </b-select>
+          </b-field>
           <b-field label="Title">
             <b-input v-model="newTodo.title" />
           </b-field>
           <b-field>
             <div class="control is-block">
-              <input type="submit" class="button is-link" value="Submit" />
+              <input type="submit" class="button is-link" value="Submit" :disabled="newTodo.category===null"/>
             </div>
           </b-field>
         </form>
@@ -37,13 +51,17 @@ export default {
   data: function() {
     return {
       newTodo: {
-        title: null
+        title: null,
+        category: null
       }
     };
   },
   computed: {
     todos() {
       return this.$store.state.todos;
+    },
+    categories() {
+      return this.$store.state.categories;
     }
   },
   components: {
@@ -60,7 +78,11 @@ export default {
     this.$store.dispatch("loadToDos").catch(() => {
       // if we are not logged in redirect home
       this.$router.push("/");
-    })
+    });
+    this.$store.dispatch("loadCategories").catch(() => {
+      // if we are not logged in redirect home
+      this.$router.push("/");
+    });
   }
 };
 </script>

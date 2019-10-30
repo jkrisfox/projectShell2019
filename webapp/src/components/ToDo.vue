@@ -4,6 +4,7 @@
     <span class="todo-title column">
       {{ todo.title }}
     </span>
+    <b-button>{{todo.category.name}}</b-button>
     <b-button v-on:click="handleDelete">Delete</b-button>
   </div>
 </template>
