@@ -19,6 +19,13 @@
           <b-field label="Title">
             <b-input v-model="newTodo.title" />
           </b-field>
+          <b-field label="Category">
+            <select id="choose category">
+            <option value="1">Groceries</option>
+            <option value="2">Errands</option>
+            <option value="3">homework</option>
+            </select>
+          </b-field>
           <b-field>
             <div class="control is-block">
               <input type="submit" class="button is-link" value="Submit" />
