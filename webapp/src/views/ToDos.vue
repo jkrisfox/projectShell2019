@@ -23,9 +23,16 @@
             <div class="control is-block">
               <input type="submit" class="button is-link" value="Submit" />
             </div>
+            <!--
+            <v-select
+              @input="myAction"
+              :options="@store.state.categories"
+              :value="$store.state.selected"
+            ></v-select>
+            -->
           </b-field>
         </form>
-      </div>
+     </div>
     </section>
   </div>
 </template>
@@ -44,6 +51,9 @@ export default {
   computed: {
     todos() {
       return this.$store.state.todos;
+    },
+    categories() {
+      return this.$store.state.categories;
     }
   },
   components: {
