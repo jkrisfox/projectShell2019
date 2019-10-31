@@ -13,7 +13,7 @@ export const mutations = {
   },
   addToDo(state, todo) {
     state.todoIdx = state.todoIdx + 1;
-    state.todos = [...state.todos, { ...todo, done: false, id: state.todoIdx }];
+    state.todos = [...state.todos, { ...todo, done: false, id: state.todoIdx, category: state.Category }];
   },
   updateToDo(state, todo) {
     state.todos = state.todos.map(td => (td.id === todo.id ? todo : td));
