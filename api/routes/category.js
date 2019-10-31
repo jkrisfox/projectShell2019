@@ -20,3 +20,5 @@ router.route('/category')
       res.send(404);
     });
   });
+
+  export default router;

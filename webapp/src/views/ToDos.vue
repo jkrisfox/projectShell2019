@@ -2,7 +2,7 @@
   <div class="todos">
     <div class="columns is-centered">
       <div class="column is-half is-block">
-        <h5 class="is-5 title">Groceries</h5>
+        <h5 class="is-5 title">My ToDos</h5>
       </div>
     </div>
     <div class="columns is-centered">
@@ -18,6 +18,13 @@
         <form v-on:submit.prevent="onSubmit">
           <b-field label="Title">
             <b-input v-model="newTodo.title" />
+          </b-field>
+          <b-field label="Category">
+            <select id="choose category">
+            <option value="1">Groceries</option>
+            <option value="2">Errands</option>
+            <option value="3">homework</option>
+            </select>
           </b-field>
           <b-field>
             <div class="control is-block">
