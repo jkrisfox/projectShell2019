@@ -13,7 +13,7 @@ router.route('/todos')
   .post((req, res) => {
     const { done, title, category } = req.body;
     const manager = getManager();
-    const todo = manager.create(ToDo, { done, title });
+    const todo = manager.create(ToDo, { done, title }); // Try category in here
     todo.user = req.user;
     todo.category = category;
     manager.save(todo).then((savedTodo) => {

@@ -7,9 +7,12 @@
     </div>
     <div class="columns is-centered">
       <div class="column is-half">
-          <template v-for="todo in todos" >
+        <template v-for="category in categories">
+          <h6 class="is-6 title" v-bind:key="category.id"> {{category.name}} </h6>
+          <template v-for="todo in category.todos" >
             <ToDo :key="todo.id" :todo="todo" />
           </template>
+        </template>
       </div>
     </div>
     <section class="newTodo columns is-centered">
@@ -72,6 +75,9 @@ export default {
       this.$store.dispatch("addToDo", this.newTodo).then(() => {
         this.newTodo.title = null;
         this.newTodo.category = null;
+        this.$store.dispatch("loadCategories").catch(() => {
+          this.$router.push("/");
+        })
       });
     },
   },
