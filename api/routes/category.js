@@ -3,7 +3,7 @@ import { getRepository, getManager } from 'typeorm';
 import Category from '../entities/category';
 
 const router = Router();
-router.route('/category')
+router.route('/categories')
   .get((req, res) => {
     getRepository(Category).find({ where: { userId: req.user.id } }).then((categories) => {
       res.send(categories);

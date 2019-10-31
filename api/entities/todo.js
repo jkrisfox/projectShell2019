@@ -18,8 +18,8 @@ export default class ToDo {
   @Column({ type: 'varchar' })
   title
 
-  // @ManyToOne(() => User, (user) => user.todos)
-  // user
+  @ManyToOne(() => User, (user) => user.todos)
+  user
 
   @ManyToOne(() => Category, (category) => category.todos)
   category

@@ -6,9 +6,16 @@
       </div>
     </div>
     <div class="columns is-centered">
+    <!--This is where you gonna display your new list of todos, separated by categories
       <div class="column is-half">
         <template v-for="todo in todos">
           <ToDo :key="todo.id" :todo="todo" />
+        </template>
+      </div>
+      -->
+      <div class="column is-half">
+        <template v-for="category in categories">
+          <Category :key="category.id" :category="category" />
         </template>
       </div>
     </div>
