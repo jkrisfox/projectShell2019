@@ -6,8 +6,9 @@ import passport from 'passport';
 import config from './config/passport';
 
 import login from './routes/login';
+import todo from './routes/todo';
+import category from './routes/category';
 
-// Setting up port
 const PORT = process.env.PORT || 3000;
 
 const app = express();
@@ -22,14 +23,15 @@ app.use(passport.initialize());
 app.use(passport.session());
 config();
 
-// wire up all the routes
 app.use(login(passport));
+app.use(todo);
+app.use(category);
 
-// respond with "hello world" when a GET request is made to the homepage
 app.get('/', (_req, res) => {
   res.send('hello world');
 });
 
 createConnection().then(() => {
+  // eslint-disable-next-line no-console
   app.listen(PORT, () => console.log('Example app listening on port 3000!'));
 });
