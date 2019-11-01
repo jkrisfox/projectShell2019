@@ -7,46 +7,47 @@ const router = Router();
 router.route('/todos')
   .all(isAuthenticated)
   .get((req, res) => {
-    getRepository(ToDo).find({ where: { userId: req.user.id } }).then((todos) => {
-      res.send(todos);
-    });
+      getRepository(ToDo).find({ where: { userId: req.user.id }, relations: ['category'] }).then((todo) => {
+        res.send(todo);
+    })
   })
   .post((req, res) => {
-    const { done, title } = req.body;
+    const { done, title, category } = req.body;
     const manager = getManager();
     const todo = manager.create(ToDo, { done, title });
+    todo.done = done;
+    todo.title = title;
     todo.user = req.user;
+    todo.category = category;
     manager.save(todo).then((savedTodo) => {
       res.send(savedTodo);
     });
   });
+
 router.route('/todos/:id')
   .all(isAuthenticated)
   .all((req, res, next) => {
     getRepository(ToDo).findOneOrFail(
       { where: { userId: req.user.id, id: req.params.id } },
-    ).then((_foundTodo) => {
-      req.todo = _foundTodo;
+    ).then((_foundToDo) => {
+      req.todo = _foundToDo;
       next();
     }, () => {
-      res.send(404);
+      res.sendStatus(404);
     });
   })
   .put((req, res) => {
     const foundTodo = req.todo;
-    const { title, done } = req.body;
-    foundTodo.title = title;
+    const { done } = req.body;
     foundTodo.done = done;
+
     getManager().save(foundTodo).then((updatedTodo) => {
       res.send(updatedTodo);
     });
   })
-  .get((req, res) => {
-    res.send(req.todo);
-  })
   .delete((req, res) => {
     getManager().delete(ToDo, req.todo.id).then(() => {
-      res.send(200);
+      res.sendStatus(200);
     });
   });
 

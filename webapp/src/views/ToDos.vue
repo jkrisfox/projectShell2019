@@ -19,6 +19,14 @@
           <b-field label="Title">
             <b-input v-model="newTodo.title" />
           </b-field>
+          <b-select label="Topic" v-model="newTodo.category" placeholder="Select a Category">
+            <option 
+              v-for="category in categories"
+              v-bind:key="category.id"
+              v-bind:value="category.id"> 
+              {{ category.title }} 
+            </option>
+          </b-select>
           <b-field>
             <div class="control is-block">
               <input type="submit" class="button is-link" value="Submit" />
@@ -37,13 +45,17 @@ export default {
   data: function() {
     return {
       newTodo: {
-        title: null
+        title: null,
+        category: null
       }
     };
   },
   computed: {
     todos() {
       return this.$store.state.todos;
+    },
+    categories() {
+      return this.$store.state.categories;
     }
   },
   components: {
@@ -60,7 +72,11 @@ export default {
     this.$store.dispatch("loadToDos").catch(() => {
       // if we are not logged in redirect home
       this.$router.push("/");
-    })
+    });
+    this.$store.dispatch("loadCategories").catch(() => {
+      // if we are not logged in redirect home
+      this.$router.push("/");
+    });
   }
 };
 </script>
