@@ -7,7 +7,7 @@ const router = Router();
 router.route('/categories')
   .all(isAuthenticated)
   .get((req, res) => {
-    getRepository(Category).find({ where: { userId: req.user.id } }).then((categories) => {
+    getRepository(Category).find({ where: { user: req.user.id } }).then((categories) => {
       res.send(categories);
     });
   })
