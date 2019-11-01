@@ -11,18 +11,17 @@ export const mutations = {
   logout: function(state) {
     state.loginState = { ...state.loginState, loggedIn: false };
   },
-  addToDo(state, todo) {
-    state.todoIdx = state.todoIdx + 1;
-    state.todos = [...state.todos, { ...todo, done: false, id: state.todoIdx }];
+  categoriesLoaded(state, categories) {
+    state.categories = categories;
+    console.log(categories)
   },
-  updateToDo(state, todo) {
-    state.todos = state.todos.map(td => (td.id === todo.id ? todo : td));
+  addCategory(state, category) {
+    state.categories = [...state.categories, category];
   },
   deleteToDo(state, todo) {
-    state.todos = state.todos.filter(td => td.id !== todo.id);
-  },
-  todosLoaded(state, todos) {
-    state.todos = todos;
+    state.categories = state.categories.map(cat => {
+       cat.todos = cat.todos.filter(td => td.id != todo.id);
+       return cat;});
   }
 };
 
@@ -39,25 +38,25 @@ export const actions = {
       commit("logout");
     });
   },
-  addToDo({ commit }, toDo) {
-    return axios.post("/api/todos", toDo).then(response => {
-      commit("addToDo", response.data);
-    });
-  },
-  updateTodo({ commit }, toDo) {
-    return axios.put(`/api/todos/${toDo.id}`, toDo).then(response => {
-      commit("updateToDo", response.data);
-    });
+  addCategory({ commit }, category) {
+    return axios.post('/api/categories', category).then(() => {
+      commit('addCategory');
+    })
   },
   deleteTodo({ commit }, toDo) {
     return axios.delete(`/api/todos/${toDo.id}`).then(() => {
       commit("deleteToDo", toDo);
     });
   },
-  loadToDos({ commit }) {
-    return axios.get("/api/todos").then(response => {
-      commit("todosLoaded", response.data);
-    });
+  loadCategories({ commit }) {
+    console.log("here")
+    return axios.get("/api/categories").then(response => {
+      console.log(response.data);
+      commit("categoriesLoaded", response.data);
+    })},
+  addToDo( toDo ) {
+    return axios.post("/api/todos", toDo).then(() => 
+        this.state.dispatch("loadCategories"));
   },
   checkLoggedIn({ commit }) {
     return axios.get("/api/checkLogin").then(() => {
@@ -69,6 +68,7 @@ export const actions = {
 export default new Vuex.Store({
   state: {
     todos: [],
+    categories: [],
     loginState: {
       loggedIn: false
     },

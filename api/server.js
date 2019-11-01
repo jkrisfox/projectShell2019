@@ -7,6 +7,8 @@ import config from './config/passport';
 
 import login from './routes/login';
 import todo from './routes/todo';
+import user from './routes/user';
+import category from './routes/category';
 
 // Setting up port
 const PORT = process.env.PORT || 3000;
@@ -26,6 +28,8 @@ config();
 // wire up all the routes
 app.use(login(passport));
 app.use(todo);
+app.use(user);
+app.use(category);
 
 // respond with "hello world" when a GET request is made to the homepage
 app.get('/', (_req, res) => {
