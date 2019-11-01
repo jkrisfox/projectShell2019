@@ -23,5 +23,5 @@ export default class User {
   todos
 
   @OneToMany(() => Category, (category) => category.user)
-  category
+  categories
 }

@@ -7,8 +7,8 @@ const router = Router();
 router.route('/category')
   .all(isAuthenticated)
   .get((req, res) => {
-    getRepository(Category).find({ where: { userId: req.user.id }, relations: ['todos'] }).then((topics) => {
-      res.send(topics);
+    getRepository(Category).find({ where: { user: req.user.id } }).then((categories) => {
+      res.send(categories);
     });
   })
   .post((req, res) => {
@@ -18,7 +18,7 @@ router.route('/category')
     category.user = req.user;
     manager.save(category).then((savedCategory) => {
       res.send(savedCategory);
-    }, {});
-  })
+    });
+  });
 
 export default router;
