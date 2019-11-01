@@ -20,7 +20,7 @@ describe("ToDos", () => {
         store,
         localVue,
         stubs: {
-          "ToDo": true
+          ToDo: true
         }
       });
       expect(cmp.findAll("ToDo-stub").length).toBe(0);
@@ -37,7 +37,7 @@ describe("ToDos", () => {
         store,
         localVue,
         stubs: {
-          "ToDo": true
+          ToDo: true
         }
       });
       expect(cmp.findAll("todo-stub").length).toBe(1);
