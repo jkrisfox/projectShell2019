@@ -16,9 +16,6 @@ import {
     @Column({ type: 'varchar' })
     name
 
-    @OneToMany(() => ToDo, (todo) => todo.category)
-    todos
-
     @ManyToOne(() => User, (user) => user.categories)
     user
   }

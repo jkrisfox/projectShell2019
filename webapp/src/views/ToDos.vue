@@ -70,10 +70,10 @@ export default {
     }
   },
   mounted: function() {
-    this.$store.dispatch("loadToDos").then(() => {this.$store.dispatch("loadCategories")}).catch(() => {
+    this.$store.dispatch("loadToDos").then(() => {this.$store.dispatch("loadCategories");}).catch(() => {
       // if we are not logged in redirect home
       this.$router.push("/");
-    })
+    });
   }
 };
 </script>
