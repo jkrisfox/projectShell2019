@@ -19,7 +19,7 @@ export default class User {
   @Column({ type: 'varchar', nullable: false })
   password
 
-  @OneToMany(() => ToDo, (todo) => todo.user)
+  @OneToMany(() => ToDo, (todo) => todo.user, { eager: true })
   todos
 
   @OneToMany(() => Category, (category) => category.user)
