@@ -8,10 +8,7 @@
     <div class="columns is-centered">
       <div class="column is-half">
         <template v-for="todo in todos">
-          <template v-for="category in categories">
-            <h6 v-bind:key="category.id">{{category.Name}}</h6>
-            <ToDo :key="todo.id" :todo="todo" />
-          </template>
+          <ToDo :key="todo.id" :todo="todo" />
         </template>
       </div>
     </div>
@@ -23,9 +20,20 @@
           <b-field label="Title">
             <b-input v-model="newTodo.title" />
           </b-field>
-          <section>
+          <b-field label="Category">
+            <b-select v-model="newTodo.category"
+              placeholder="Select a category"
+            >
+              <option
+                v-for="category in categories"
+                :value="category.id"
+                :key="category.id"
+              >
+                {{ category.name }}
+              </option>
+            </b-select>
+          </b-field>
 
-    </section>
           <b-field>
             <div class="control is-block">
               <input type="submit" class="button is-link" value="Submit" />
@@ -52,6 +60,9 @@ export default {
   computed: {
     todos() {
       return this.$store.state.todos;
+    },
+    categories() {
+      return this.$store.state.categories;
     }
   },
   components: {
@@ -59,13 +70,23 @@ export default {
   },
   methods: {
     onSubmit() {
+      if (this.newTodo.category == null){
+        return;
+      }     
       this.$store.dispatch("addToDo", this.newTodo).then(() => {
         this.newTodo.title = null,
         this.newTodo.category = null;
+        this.$store.dispatch("getCategories").catch(() => {
+          this.$$router.push("/");
+        })
       });
-    }
+    },
   },
   mounted: function() {
+    this.$store.dispatch("getCategories").catch(() => {
+      // if we are not logged in redirect home
+      this.$router.push("/");
+    });
     this.$store.dispatch("loadToDos").catch(() => {
       // if we are not logged in redirect home
       this.$router.push("/");
