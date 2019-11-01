@@ -7,7 +7,7 @@ const router = Router();
 router.route('/todos')
   .all(isAuthenticated)
   .get((req, res) => {
-    getRepository(ToDo).find({ where: { userId: req.user.id }, relations: ['cat'] }).then((todos) => {
+    getRepository(ToDo).find({ where: { user: req.user.id }, relations: ['cat'] }).then((todos) => {
       res.send(todos);
     });
   })
@@ -26,7 +26,7 @@ router.route('/todos/:id')
   .all(isAuthenticated)
   .all((req, res, next) => {
     getRepository(ToDo).findOneOrFail(
-      { where: { userId: req.user.id, id: req.params.id }, relations: ['cat'] },
+      { where: { user: req.user.id, id: req.params.id }, relations: ['cat'] },
     ).then((_foundTodo) => {
       req.todo = _foundTodo;
       next();

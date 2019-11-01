@@ -7,7 +7,7 @@ const router = Router();
 router.route('/category')
   .all(isAuthenticated)
   .get((req, res) => {
-    getRepository(Cat).find({ where: { userId: req.user.id } }).then((cats) => {
+    getRepository(Cat).find({ where: { user: req.user.id } }).then((cats) => {
       res.send(cats);
     });
   })
@@ -24,7 +24,7 @@ router.route('/category/:id')
   .all(isAuthenticated)
   .all((req, res, next) => {
     getRepository(Cat).findOneOrFail(
-      { where: { userId: req.user.id, id: req.params.id } },
+      { where: { user: req.user.id, id: req.params.id } },
     ).then((_foundCat) => {
       req.cat = _foundCat;
       next();
