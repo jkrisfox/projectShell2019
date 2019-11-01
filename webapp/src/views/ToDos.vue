@@ -8,7 +8,7 @@
     <div class="columns is-centered">
       <div class="column is-half">
         <template v-for="todo in todos">
-          <ToDo :key="todo.id" :todo="todo" />
+          <ToDo :key="todo.id" :todo="todo" :cat="category"/>
         </template>
       </div>
     </div>

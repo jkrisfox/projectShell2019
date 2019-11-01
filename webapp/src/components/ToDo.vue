@@ -5,7 +5,7 @@
     <form v-on:submit.prevent="onSubmit">
       <b-field>
         <select id="cat-dropdown" text="Category" >
-          <option v-for="thing in categs" :key="thing.id" v-on:click="handleCategory"> {{thing.name}} </option>
+          <option v-for="thing in cat" :key="thing.id" v-on:click="handleCategory"> {{thing.name}} </option>
         </select>
       </b-field>
     </form>
@@ -22,16 +22,23 @@ export default {
       default: () => {
         return {};
       }
+    },
+    cat: {
+      type: Object,
+      default: () => {
+        return {};
+      }
     }
   },
   computed: {
     categs() {
+      console.log(this.$store.state.categories);
       return this.$store.state.categories;
     }
   },
   data(){
     return {
-      tmp: [{id:0, name:"test"}, {id:2, name:"woo"}]
+      tmp: [{id:0, name:"category1"}, {id:2, name:"category2"}]
     }
   },
   methods: {
