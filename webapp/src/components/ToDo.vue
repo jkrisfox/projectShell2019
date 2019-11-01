@@ -24,7 +24,9 @@ export default {
       this.$store.dispatch("updateTodo", { ...this.todo, done: value });
     },
     handleDelete: function() {
-      this.$store.dispatch("deleteTodo", this.todo);
+      this.$store.dispatch("deleteTodo", this.todo).then( () => {
+        this.$store.dispatch("loadCategories");
+      });
     }
   }
 };
