@@ -12,8 +12,7 @@ export const mutations = {
     state.loginState = { ...state.loginState, loggedIn: false };
   },
   addToDo(state, todo) {
-    state.todoIdx = state.todoIdx + 1;
-    state.todos = [...state.todos, { ...todo, done: false, id: state.todoIdx }];
+    state.todos = [...state.todos, { ...todo, done: false }];
   },
   updateToDo(state, todo) {
     state.todos = state.todos.map(td => (td.id === todo.id ? todo : td));
@@ -22,7 +21,6 @@ export const mutations = {
     state.todos = state.todos.filter(td => td.id !== todo.id);
   },
   todosLoaded(state, todos) {
-    console.log(todos);
     state.todos = todos;
   },
   categoriesLoaded(state, categories) {
@@ -78,11 +76,10 @@ export const actions = {
 export default new Vuex.Store({
   state: {
     todos: [],
-    categories : [],
+    categories: [],
     loginState: {
       loggedIn: false
-    },
-    todoIdx: 0
+    }
   },
   mutations,
   actions

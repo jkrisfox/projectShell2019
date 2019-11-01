@@ -8,15 +8,18 @@
     <div class="columns is-centered">
       <div class="column is-half">
         <template v-for="category in categories">
-            <h5 class="is-5 title">{{category.name}}</h5>
-            <template v-for="todo in todos">
-              <ToDo v-if="todo.category.id === category.id" :key="todo.id" :todo="todo" />
-            </template>
+          <h5 class="is-5 subtitle">{{ category.name }}</h5>
+          <template v-for="todo in todos">
+            <ToDo
+              v-if="todo.category.id === category.id"
+              :key="todo.id"
+              :todo="todo"
+            />
+          </template>
         </template>
-        
       </div>
     </div>
-    
+
     <section class="newTodo columns is-centered">
       <div class="column is-half">
         <h5 class="title is-5">New ToDo</h5>
@@ -25,7 +28,7 @@
             <b-select v-model="newTodo.category">
               <template v-for="category in categories">
                 <option :key="category.id" :value="category">
-                  {{category.name}}
+                  {{ category.name }}
                 </option>
               </template>
             </b-select>
@@ -35,7 +38,12 @@
           </b-field>
           <b-field>
             <div class="control is-block">
-              <input type="submit" class="button is-link" value="Submit" :disabled="newTodo.category===null"/>
+              <input
+                type="submit"
+                class="button is-link"
+                value="Submit"
+                :disabled="newTodo.category === null"
+              />
             </div>
           </b-field>
         </form>
