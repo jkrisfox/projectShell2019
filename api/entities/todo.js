@@ -3,8 +3,10 @@ import {
   Column,
   PrimaryGeneratedColumn,
   ManyToOne,
+  OneToMany,
 } from 'typeorm';
 import User from './user';
+import Cat from './cat';
 
 @Entity()
 export default class ToDo {
@@ -17,9 +19,10 @@ export default class ToDo {
   @Column({ type: 'varchar' })
   title
 
-  @Column({ type: 'integer' })
-  cat_id
+  @ManyToOne(() => Cat, (cat) => cat.todos, { nullable: false })
+  cat
 
   @ManyToOne(() => User, (user) => user.todos)
   user
+
 }

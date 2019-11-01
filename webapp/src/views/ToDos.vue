@@ -19,6 +19,16 @@
           <b-field label="Title">
             <b-input v-model="newTodo.title" />
           </b-field>
+          <b-field label="Category">
+            <b-select v-model="newTodo.cat">
+              <option
+                      v-for="cat in cats"
+                      :value="cat.id"
+                      :key="cat.id">
+                      {{ cat.name }}
+              </option>
+            </b-select>
+          </b-field>
           <b-field>
             <div class="control is-block">
               <input type="submit" class="button is-link" value="Submit" />
@@ -44,6 +54,9 @@ export default {
   computed: {
     todos() {
       return this.$store.state.todos;
+    },
+    cats() {
+      return this.$store.state.cats;
     }
   },
   components: {
@@ -57,7 +70,11 @@ export default {
     }
   },
   mounted: function() {
-    this.$store.dispatch("loadToDos").catch(() => {
+    this.$store.dispatch("loadToDos")
+    .then(() => {
+      this.$store.dispatch("loadCats")
+      })
+    .catch(() => {
       // if we are not logged in redirect home
       this.$router.push("/");
     })
