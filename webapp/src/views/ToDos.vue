@@ -8,7 +8,7 @@
     <div class="columns is-centered">
       <div class="column is-half">
         <template v-for="todo in todos">
-          <ToDo :key="todo.id" :todo="todo" />
+          <ToDo :key="todo.id" :todo="todo"/>
         </template>
       </div>
     </div>
@@ -18,6 +18,11 @@
         <form v-on:submit.prevent="onSubmit">
           <b-field label="Title">
             <b-input v-model="newTodo.title" />
+          </b-field>
+          <b-field label="Category">
+            <select id="cat-dropdown" v-model="newTodo.category">
+              <option v-for="category in categories" :key="category.id" :value="category.id">{{category.name}}</option>
+            </select>
           </b-field>
           <b-field>
             <div class="control is-block">
@@ -37,13 +42,17 @@ export default {
   data: function() {
     return {
       newTodo: {
-        title: null
+        title: null,
+        category: null
       }
     };
   },
   computed: {
     todos() {
       return this.$store.state.todos;
+    },
+    categories() {
+      return this.$store.state.categories;
     }
   },
   components: {
@@ -53,15 +62,17 @@ export default {
     onSubmit() {
       this.$store.dispatch("addToDo", this.newTodo).then(() => {
         this.newTodo.title = null;
+        this.newTodo.category = null;
       });
     }
   },
   mounted: function() {
-    this.$store.dispatch("loadToDos").catch(() => {
-      // if we are not logged in redirect home
+    this.$store.dispatch("loadCategories").catch(() => {
       this.$router.push("/");
-    })
+    });
+    this.$store.dispatch("loadToDos").catch(() => {
+      this.$router.push("/");
+    });
   }
 };
 </script>
-<style lang="scss" scoped></style>

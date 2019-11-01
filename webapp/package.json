@@ -2,6 +2,7 @@
   "name": "webapp",
   "version": "0.1.0",
   "private": true,
+  "resolutions": { "eslint-loader": "2.1.2" },
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
