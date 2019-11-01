@@ -12,8 +12,7 @@ export const mutations = {
     state.loginState = { ...state.loginState, loggedIn: false };
   },
   addToDo(state, todo) {
-    state.todoIdx = state.todoIdx + 1;
-    state.todos = [...state.todos, { ...todo, done: false, id: state.todoIdx}];
+    state.todos = [...state.todos, { ...todo, done: false }];
   },
   updateToDo(state, todo) {
     state.todos = state.todos.map(td => (td.id === todo.id ? todo : td));

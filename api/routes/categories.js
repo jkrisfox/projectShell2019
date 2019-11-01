@@ -12,9 +12,9 @@ router.route('/category')
     });
   })
   .post((req, res) => {
-    const { name, user } = req.body;
+    const { name } = req.body;
     const manager = getManager();
-    const cat = manager.create(Cat, { name, user });
+    const cat = manager.create(Cat, { name });
     cat.user = req.user;
     manager.save(cat).then((savedCat) => {
       res.send(savedCat);

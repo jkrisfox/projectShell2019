@@ -66,6 +66,7 @@ export default {
     onSubmit() {
       this.$store.dispatch("addToDo", this.newTodo).then(() => {
         this.newTodo.title = null;
+        this.newTodo.cat = null;
       });
     }
   },
