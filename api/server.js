@@ -7,6 +7,7 @@ import config from './config/passport';
 
 import login from './routes/login';
 import todo from './routes/todo';
+import categories from './routes/categories';
 
 // Setting up port
 const PORT = process.env.PORT || 3000;
@@ -24,6 +25,7 @@ app.use(passport.session());
 config();
 
 // wire up all the routes
+app.use(categories);
 app.use(login(passport));
 app.use(todo);
 
