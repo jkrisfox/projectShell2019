@@ -25,7 +25,7 @@ export const mutations = {
     state.todos = todos;
   },
   categoriesLoaded(state, categories) {
-    state.categories = categories;
+    state.categories = [{id:0, name:"test"}, {id:2, name:"woo"}];
   }
 };
 
@@ -63,7 +63,7 @@ export const actions = {
     });
   },
   loadCategories({ commit }) {
-    return axios.get("/api/category").then(response => {
+    return axios.get("/api/categories").then(response => {
       commit("categoriesLoaded", response.data);
     });
   },

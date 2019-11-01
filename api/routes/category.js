@@ -5,9 +5,7 @@ import Category from '../entities/category';
 const router = Router();
 router.route('/categories')
   .get((req, res) => {
-    getRepository(Category).find().then((categories) => {
-      res.send(categories);
-    });
+    res.send(req.user.categories);
   })
   .post((req, res) => {
     const { name } = req.body;

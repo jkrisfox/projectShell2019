@@ -4,8 +4,10 @@ import {
   Column,
   PrimaryGeneratedColumn,
   OneToMany,
+  ManyToOne,
 } from 'typeorm';
 import ToDo from './todo';
+import User from './user';
 
 @Entity()
 export default class Category {
@@ -17,4 +19,7 @@ export default class Category {
 
   @OneToMany(() => ToDo, (todo) => todo.category)
   todos
+
+  @ManyToOne(() => User, (user) => user.category)
+  user
 }
