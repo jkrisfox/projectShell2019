@@ -11,7 +11,7 @@ export default class ToDo {
   @PrimaryGeneratedColumn()
   id
 
-  @Column({ type: 'boolean' })
+  @Column({ type: 'boolean', default: 0 })
   done
 
   @Column({ type: 'varchar' })
