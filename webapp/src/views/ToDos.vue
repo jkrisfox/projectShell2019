@@ -35,7 +35,7 @@
                 <option v-for="category in categories"
                     :key="category.id"
                     :value="category.id"
-                    :selected="category.id == post.category_id">
+                    :selected="category.id">
                   {{ category.name }}
                 </option>
               </select><br>
