@@ -6,11 +6,19 @@
       </div>
     </div>
     <div class="columns is-centered">
+      <!--This is where you gonna display your new list of todos, separated by categories-->
       <div class="column is-half">
         <template v-for="todo in todos">
           <ToDo :key="todo.id" :todo="todo" />
         </template>
       </div>
+      <!--
+      <div class="column is-half">
+        <template v-for="category in categories">
+          <Category :key="category.id" :category="category" />
+        </template>
+      </div>
+      -->
     </div>
     <section class="newTodo columns is-centered">
       <div class="column is-half">
@@ -21,11 +29,21 @@
           </b-field>
           <b-field>
             <div class="control is-block">
+             <label>Category</label>
+              <select class="form-control"
+                    @input="setCategoryID($event.target.value)">
+                <option v-for="category in categories"
+                    :key="category.id"
+                    :value="category.id"
+                    :selected="category.id">
+                  {{ category.name }}
+                </option>
+              </select><br>
               <input type="submit" class="button is-link" value="Submit" />
             </div>
           </b-field>
         </form>
-      </div>
+     </div>
     </section>
   </div>
 </template>
@@ -44,13 +62,21 @@ export default {
   computed: {
     todos() {
       return this.$store.state.todos;
+    },
+    categories() {
+      return this.$store.state.categories;
     }
   },
   components: {
     ToDo
+    // Category
   },
   methods: {
+    setCategoryID(categoryID) {
+      this.$emit('input', parseInt(categoryID))
+    },
     onSubmit() {
+      this.newTodo.categoryID = this.setCategoryID();
       this.$store.dispatch("addToDo", this.newTodo).then(() => {
         this.newTodo.title = null;
       });
@@ -61,7 +87,8 @@ export default {
       // if we are not logged in redirect home
       this.$router.push("/");
     })
+    this.$store.dispatch("loadCategories");
   }
-};
+}
 </script>
 <style lang="scss" scoped></style>
