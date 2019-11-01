@@ -25,6 +25,16 @@
             </div>
           </b-field>
         </form>
+        <b-field label="Category">
+            <b-select placeholder="Select a category">
+                <option
+                    v-for="category in categories"
+                    :value="category.id"
+                    :key="category.id">
+                    {{ category.name }}
+                </option>
+            </b-select>
+        </b-field>
       </div>
     </section>
   </div>
@@ -44,6 +54,9 @@ export default {
   computed: {
     todos() {
       return this.$store.state.todos;
+    },
+    categories() {
+      return this.$store.state.categories;
     }
   },
   components: {
@@ -57,7 +70,7 @@ export default {
     }
   },
   mounted: function() {
-    this.$store.dispatch("loadToDos").catch(() => {
+    this.$store.dispatch("loadToDos").then(() => {this.$store.dispatch("loadCategories")}).catch(() => {
       // if we are not logged in redirect home
       this.$router.push("/");
     })
