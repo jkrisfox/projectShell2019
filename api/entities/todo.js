@@ -4,6 +4,7 @@ import {
   PrimaryGeneratedColumn,
   ManyToOne,
 } from 'typeorm';
+import Category from './category';
 import User from './user';
 
 @Entity()
@@ -17,6 +18,10 @@ export default class ToDo {
   @Column({ type: 'varchar' })
   title
 
+  @ManyToOne(() => Category, (category) => category.todos, {eager: true})
+  category
+
   @ManyToOne(() => User, (user) => user.todos)
   user
+
 }
