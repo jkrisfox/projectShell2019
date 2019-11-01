@@ -17,6 +17,9 @@ export default class ToDo {
   @Column({ type: 'varchar' })
   title
 
+  @Column({ type: 'varchar' })
+  kind
+
   @ManyToOne(() => User, (user) => user.todos)
   user
 }

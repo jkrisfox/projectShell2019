@@ -8,7 +8,7 @@
     <div class="columns is-centered">
       <div class="column is-half">
         <template v-for="todo in todos">
-          <ToDo :key="todo.id" :todo="todo" />
+          <ToDo :key="todo.id" :todo="todo"/>
         </template>
       </div>
     </div>
@@ -19,12 +19,15 @@
           <b-field label="Title">
             <b-input v-model="newTodo.title" />
           </b-field>
+           <b-field label="Category">
+            <b-input v-model="newTodo.kind" />
+          </b-field>
           <b-field>
             <div class="control is-block">
               <input type="submit" class="button is-link" value="Submit" />
             </div>
           </b-field>
-        </form>
+        </form>       
       </div>
     </section>
   </div>
@@ -38,7 +41,10 @@ export default {
     return {
       newTodo: {
         title: null
-      }
+      },
+      newTodo: {
+        kind: null
+      },
     };
   },
   computed: {
@@ -53,8 +59,9 @@ export default {
     onSubmit() {
       this.$store.dispatch("addToDo", this.newTodo).then(() => {
         this.newTodo.title = null;
+        this.newTodo.kind = null;
       });
-    }
+    },
   },
   mounted: function() {
     this.$store.dispatch("loadToDos").catch(() => {

@@ -2,7 +2,9 @@
   <div class="todo columns">
     <b-checkbox v-model="todo.done" v-on:input="handleCheck" />
     <span class="todo-title column">
-      {{ todo.title }}
+      {{todo.title}}
+    </span><span class="todo-category column">
+      {{todo.kind}}
     </span>
     <b-button v-on:click="handleDelete">Delete</b-button>
   </div>
