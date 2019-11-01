@@ -8,20 +8,25 @@ const router = Router();
 router.route('/todos')
   .all(isAuthenticated)
   .get((req, res) => {
-    getRepository(ToDo).find({where: { user: req.user.id }, relations: ['category'] },
-    ).then((todos) => {
-      res.send(req.user.todos);
+    getRepository(ToDo).find({ where: { user: req.user.id }, relations: ['category'] }).then((todos) => {
+      res.send(todos);
     });
   })
   .post((req, res) => {
     const { done, title, category } = req.body;
-    const manager = getManager();
-    const todo = manager.create(ToDo, { done, title });
-    todo.category = _foundCategory;
-    todo.user = req.user;
-    manager.save(todo).then((savedTodo) => {
+    getRepository(Category).findOneOrFail(
+      { where: { user: req.user.id, id: category } },
+    ).then((_foundCategory) => {
+      const manager = getManager();
+      const todo = manager.create(ToDo, { done, title });
+      todo.category = _foundCategory;
+      todo.user = req.user;
+      manager.save(todo).then((savedTodo) => {
         res.send(savedTodo);
       });
+    }, () => {
+      res.send(404);
+    });
   });
 router.route('/todos/:id')
   .all(isAuthenticated)
@@ -40,7 +45,8 @@ router.route('/todos/:id')
     const { title, done, category } = req.body;
     foundTodo.title = title;
     foundTodo.done = done;
-    getRepository(Category).findOneOrFail( { where: { user: req.user.id, id: category } },
+    getRepository(Category).findOneOrFail(
+      { where: { user: req.user.id, id: category } },
     ).then((_foundCategory) => {
       foundTodo.category = _foundCategory;
     }, () => {

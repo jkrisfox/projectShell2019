@@ -24,9 +24,8 @@
               <input type="submit" class="button is-link" value="Submit" />
             </div>
           </b-field>
-        </form>
-        <b-field label="Category">
-            <b-select placeholder="Select a category">
+          <b-field label="Category">
+            <b-select v-model="newTodo.category" placeholder="Select a category">
                 <option
                     v-for="category in categories"
                     :value="category.id"
@@ -34,7 +33,8 @@
                     {{ category.name }}
                 </option>
             </b-select>
-        </b-field>
+          </b-field>
+        </form>
       </div>
     </section>
   </div>
@@ -70,7 +70,9 @@ export default {
     }
   },
   mounted: function() {
-    this.$store.dispatch("loadToDos").then(() => {this.$store.dispatch("loadCategories");}).catch(() => {
+    this.$store.dispatch("loadToDos").then(() => {
+      this.$store.dispatch("loadCategories");
+      }).catch(() => {
       // if we are not logged in redirect home
       this.$router.push("/");
     });

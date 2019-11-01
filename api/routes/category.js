@@ -4,7 +4,7 @@ import isAuthenticated from '../middleware/isAuthenticated';
 import Category from '../entities/category';
 
 const router = Router();
-router.route('/category')
+router.route('/categories')
   .all(isAuthenticated)
   .get((req, res) => {
     getRepository(Category).find({ where: { user: req.user.id } }).then((categories) => {

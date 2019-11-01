@@ -3,9 +3,7 @@ import {
     Column,
     PrimaryGeneratedColumn,
     ManyToOne,
-    OneToMany,
   } from 'typeorm';
-  import ToDo from './todo';
   import User from './user';
   
   @Entity()

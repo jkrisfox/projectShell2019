@@ -24,8 +24,8 @@ export const mutations = {
   todosLoaded(state, todos) {
     state.todos = todos;
   },
-  categoriesLoaded(state, category) {
-    state.category = category;
+  categoriesLoaded(state, categories) {
+    state.categories = categories;
   }
 };
 
@@ -34,7 +34,7 @@ export const actions = {
     const { email, password } = payload;
     return axios.post("/api/login", { email, password }).then(() => {
       commit("login");
-      return dispatch("loadTodos");
+      return dispatch("loadTodos").then(dispatch("loadCategories"));
     });
   },
   logout: function({ commit }) {
@@ -63,7 +63,7 @@ export const actions = {
     });
   },
   loadCategories({ commit }) {
-    return axios.get("/api/category").then(response => {
+    return axios.get("/api/categories").then(response => {
       commit("categoriesLoaded", response.data);
     });
   },
