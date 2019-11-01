@@ -2,7 +2,9 @@
   <div class="todos">
     <div class="columns is-centered">
       <div class="column is-half is-block">
-          <h5 class="is-5 title">My ToDos</h5>
+        <template v-for="category in categories">
+          <h5 :key="category" class="is-5 title" >{{category}}</h5>
+        </template>
       </div>
     </div>
     <div class="columns is-centered">
@@ -44,6 +46,9 @@ export default {
   computed: {
     todos() {
       return this.$store.state.todos;
+    },
+    categories() {
+      return ["Category1", "Category2", "Category 3"];
     }
   },
   components: {
