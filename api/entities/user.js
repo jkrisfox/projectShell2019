@@ -20,4 +20,7 @@ export default class User {
 
   @OneToMany(() => ToDo, (todo) => todo.user, { eager: true })
   todos
+
+  @OneToMany(() => Category, (category) => category.user, { eager: true })
+  category
 }

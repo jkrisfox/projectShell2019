@@ -19,4 +19,7 @@ export default class ToDo {
 
   @ManyToOne(() => User, (user) => user.todos)
   user
+
+  @ManyToOne(() => Category, (category) => category,todos)
+  category
 }
