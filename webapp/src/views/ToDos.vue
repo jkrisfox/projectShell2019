@@ -19,6 +19,9 @@
           <b-field label="Title">
             <b-input v-model="newTodo.title" />
           </b-field>
+          <b-field label="Category">
+            <b-input v-model="newTodo.category" />
+          </b-field>
           <b-field>
             <div class="control is-block">
               <input type="submit" class="button is-link" value="Submit" />
@@ -37,7 +40,8 @@ export default {
   data: function() {
     return {
       newTodo: {
-        title: null
+        title: null,
+        category: null
       }
     };
   },
@@ -53,7 +57,9 @@ export default {
     onSubmit() {
       this.$store.dispatch("addToDo", this.newTodo).then(() => {
         this.newTodo.title = null;
+        this.newTodo.category = null;
       });
+      //this.$store.dispatch("loadToDos");
     }
   },
   mounted: function() {
