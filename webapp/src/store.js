@@ -68,7 +68,6 @@ export const actions = {
     });
   },
   loadCategories({ commit }) {
-    //commit("categoriesLoaded", [{id: 1, name: "meep"}, {id: 2, name:"moop"}])
     return axios.get("/api/cats").then(response => {
       commit("categoriesLoaded", response.data);
     });

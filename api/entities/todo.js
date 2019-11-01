@@ -22,5 +22,4 @@ export default class ToDo {
 
   @ManyToOne(() => User, (user) => user.todos)
   user
-  // Is this a column in the db?
 }
