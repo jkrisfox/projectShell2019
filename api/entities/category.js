@@ -4,24 +4,22 @@ import {
   Column,
   PrimaryGeneratedColumn,
   OneToMany,
+  ManyToOne,
 } from 'typeorm';
 import ToDo from './todo';
-import Category from './category';
+import User from './user';
 
 @Entity()
-export default class User {
+export default class Category {
   @PrimaryGeneratedColumn()
   id
 
   @Column({ type: 'varchar', unique: true })
-  email
+  name
 
-  @Column({ type: 'varchar', nullable: false })
-  password
-
-  @OneToMany(() => ToDo, (todo) => todo.user)
+  @OneToMany(() => ToDo, (todo) => todo.category)
   todos
 
-  @OneToMany(() => Category, (category) => category.user)
-  categories
+  @ManyToOne(() => User, (user) => user.category)
+  user
 }
