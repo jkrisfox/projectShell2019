@@ -60,6 +60,9 @@ export default {
     this.$store.dispatch("loadToDos").catch(() => {
       // if we are not logged in redirect home
       this.$router.push("/");
+    });
+    this.$store.dispatch("loadCategories").catch(() => {
+      this.$router.push("/");
     })
   }
 };
