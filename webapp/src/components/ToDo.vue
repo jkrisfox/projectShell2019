@@ -8,7 +8,7 @@
         <b-icon icon="menu-down"></b-icon>
       </button>
       <b-dropdown-item aria-role="menu-item" :focusable="false">Current Category: {{ todo.category }}</b-dropdown-item>
-      <b-dropdown-item v-for="item in " aria-role="listitem" v-on:click="handleCategory"></b-dropdown-item>
+      <b-dropdown-item aria-role="listitem" v-for="item in this.$store.state.categories" v-bind:key="item.id" v-on:click="handleCategory"> {{ item.name }} </b-dropdown-item>
     </b-dropdown>
     <b-button v-on:click="handleDelete">Delete</b-button>
   </div>

@@ -62,7 +62,6 @@ export default {
       this.$router.push("/");
     });
     this.$store.dispatch("loadCategories").catch(() => {
-      this.$router.push("/");
     })
   }
 };

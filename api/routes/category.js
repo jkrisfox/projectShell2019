@@ -1,53 +1,46 @@
 import { Router } from 'express';
 import { getRepository, getManager } from 'typeorm';
-import isAuthenticated from '../middleware/isAuthenticated';
 import Category from '../entities/category';
 
 const router = Router();
-router.route('/todos')
-  .all(isAuthenticated)
+router.route('/categories')
   .get((req, res) => {
-    getRepository(ToDo).find({ where: { userId: req.user.id } }).then((todos) => {
-      res.send(todos);
+    getRepository(Category).find().then((categories) => {
+      res.send(categories);
     });
   })
   .post((req, res) => {
-    const { done, title } = req.body;
+    const { name } = req.body;
     const manager = getManager();
-    const todo = manager.create(ToDo, { done, title });
-    todo.user = req.user;
-    todo.category = 'None';
-    manager.save(todo).then((savedTodo) => {
-      res.send(savedTodo);
+    const category = manager.create(Category, { name });
+    manager.save(category).then((savedCategory) => {
+      res.send(savedCategory);
     });
   });
-router.route('/todos/:id')
-  .all(isAuthenticated)
+router.route('/category/:id')
   .all((req, res, next) => {
-    getRepository(ToDo).findOneOrFail(
-      { where: { userId: req.user.id, id: req.params.id } },
-    ).then((_foundTodo) => {
-      req.todo = _foundTodo;
+    getRepository(Category).findOneOrFail(
+      { where: { id: req.params.id } },
+    ).then((_foundCategory) => {
+      req.category = _foundCategory;
       next();
     }, () => {
       res.send(404);
     });
   })
   .put((req, res) => {
-    const foundTodo = req.todo;
-    const { title, done, category } = req.body;
-    foundTodo.title = title;
-    foundTodo.done = done;
-    foundTodo.category = category;
-    getManager().save(foundTodo).then((updatedTodo) => {
-      res.send(updatedTodo);
+    const foundCategory = req.category;
+    const { name } = req.body;
+    foundCategory.name = name;
+    getManager().save(foundCategory).then((updatedCategory) => {
+      res.send(updatedCategory);
     });
   })
   .get((req, res) => {
-    res.send(req.todo);
+    res.send(req.category);
   })
   .delete((req, res) => {
-    getManager().delete(ToDo, req.todo.id).then(() => {
+    getManager().delete(Category, req.category.id).then(() => {
       res.send(200);
     });
   });
