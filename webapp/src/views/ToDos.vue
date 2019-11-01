@@ -22,8 +22,8 @@
           <b-select label="Topic" v-model="newTodo.category" placeholder="Select a Category">
             <option 
               v-for="category in categories"
-              v-bind:key="category.id"
-              v-bind:value="category.id"> 
+              v-bind:key="category"
+              v-bind:value="category"> 
               {{ category.title }} 
             </option>
           </b-select>
@@ -46,7 +46,8 @@ export default {
     return {
       newTodo: {
         title: null,
-        category: null
+        category: null,
+        done: false
       }
     };
   },

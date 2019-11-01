@@ -13,12 +13,13 @@ router.route('/categories')
     });
   })
   .post((req, res) => {
-    const { name } = req.body;
+    const { title } = req.body;
     const manager = getManager();
-    const category = manager.create(Category, { name });
+    const category = manager.create(Category, { title });
+    category.title = title;
     category.user = req.user;
     getRepository(Category).findOneOrFail(
-      { where: { userId: category.user, name: category.name } }
+      { where: { userId: category.user, title: category.title } }
     ).then(
       () => {
         res.sendStatus(400).send({ msg: "Category already exists" });
