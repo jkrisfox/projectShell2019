@@ -5,6 +5,7 @@ import {
   ManyToOne,
 } from 'typeorm';
 import User from './user';
+import Categories from './categories';
 
 @Entity()
 export default class ToDo {
@@ -19,4 +20,7 @@ export default class ToDo {
 
   @ManyToOne(() => User, (user) => user.todos)
   user
+
+  @ManyToOne(() => Categories, (categories) => categories.id)
+  categories
 }
