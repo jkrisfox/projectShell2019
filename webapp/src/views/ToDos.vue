@@ -24,6 +24,16 @@
               <input type="submit" class="button is-link" value="Submit" />
             </div>
           </b-field>
+          <b-field label="Category">
+            <b-select v-model="newTodo.category" placeholder="Select a category">
+                <option
+                    v-for="category in categories"
+                    :value="category.id"
+                    :key="category.id">
+                    {{ category.name }}
+                </option>
+            </b-select>
+          </b-field>
         </form>
       </div>
     </section>
@@ -44,6 +54,9 @@ export default {
   computed: {
     todos() {
       return this.$store.state.todos;
+    },
+    categories() {
+      return this.$store.state.categories;
     }
   },
   components: {
@@ -57,10 +70,12 @@ export default {
     }
   },
   mounted: function() {
-    this.$store.dispatch("loadToDos").catch(() => {
+    this.$store.dispatch("loadToDos").then(() => {
+      this.$store.dispatch("loadCategories");
+      }).catch(() => {
       // if we are not logged in redirect home
       this.$router.push("/");
-    })
+    });
   }
 };
 </script>
