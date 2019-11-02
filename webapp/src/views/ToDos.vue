@@ -2,13 +2,13 @@
   <div class="todos">
     <div class="columns is-centered">
       <div class="column is-half is-block">
-          <h5 class="is-5 title">My ToDos</h5>
+        <h5 class="is-5 title">My ToDos</h5>
       </div>
     </div>
     <div class="columns is-centered">
       <div class="column is-half">
         <template v-for="todo in todos">
-          <ToDo :key="todo.id" :todo="todo" />
+          <ToDo :key="todo.id" :todo="todo"/>
         </template>
       </div>
     </div>
@@ -17,14 +17,24 @@
         <h5 class="title is-5">New ToDo</h5>
         <form v-on:submit.prevent="onSubmit">
           <b-field label="Title">
-            <b-input v-model="newTodo.title"/>
+            <b-input v-model="newTodo.title" />
           </b-field>
+           <b-field label="Category">
+            <b-select placeholder="Select a category">
+                <option
+                    v-for="category in kind"
+                    :value="category.id"
+                    :key="category.id">
+                    {{ category.kind}}
+                </option>
+            </b-select>
+        </b-field>
           <b-field>
-          <div class="control is-block">
-            <input type="submit" class="button is-link" value="Submit"/>
-          </div>
+            <div class="control is-block">
+              <input type="submit" class="button is-link" value="Submit" />
+            </div>
           </b-field>
-        </form>
+        </form>       
       </div>
     </section>
   </div>
@@ -37,26 +47,40 @@ export default {
   data: function() {
     return {
       newTodo: {
-        title: null
-      }
+        title: null,
+        kind: null,
+      },
     };
   },
   computed: {
     todos() {
       return this.$store.state.todos;
+    },
+    kind() {
+      return this.$store.state.categorys;
     }
   },
   components: {
     ToDo
   },
   methods: {
-    onSubmit () {
-      this.$store.dispatch('addToDo', this.newTodo).then(() => {
+    onSubmit() {
+      this.$store.dispatch("addToDo", this.newTodo).then(() => {
         this.newTodo.title = null;
-      })
-    }
+        this.newTodo.kind = null;
+      });
+    },
+  },
+  mounted: function() {
+    this.$store.dispatch("loadToDos").catch(() => {
+      // if we are not logged in redirect home
+      this.$router.push("/");
+    }),
+      this.$store.dispatch("loadCategory").catch(() => {
+      // if we are not logged in redirect home
+      this.$router.push("/");
+    })
   }
 };
 </script>
-<style lang="scss" scoped>
-</style>>
+<style lang="scss" scoped></style>
