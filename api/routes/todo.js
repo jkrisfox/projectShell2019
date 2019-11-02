@@ -46,7 +46,7 @@ router.route('/todos/:id')
     foundTodo.title = title;
     foundTodo.done = done;
     getRepository(Category).findOneOrFail(
-      { where: { user: req.user.id, id: category } },
+      { where: { user: req.user.id, id: category.id } },
     ).then((_foundCategory) => {
       foundTodo.category = _foundCategory;
     }, () => {
