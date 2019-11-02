@@ -23,13 +23,13 @@
           <b-field label="Category">
             <b-select v-model="newTodo.category"
               placeholder="Select a category"
-            >
+            >                
               <option
                 v-for="category in categories"
                 :value="category.id"
                 :key="category.id"
               >
-                {{ category.name }}
+                {{ category.Name }}
               </option>
             </b-select>
           </b-field>
