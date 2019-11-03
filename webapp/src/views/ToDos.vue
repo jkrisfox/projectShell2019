@@ -19,6 +19,26 @@
           <b-field label="Title">
             <b-input v-model="newTodo.title" />
           </b-field>
+          <b-field label="Category">
+            <b-select v-model = "newTodo.category" placeholder="Choose a category">
+              <option v-for=" category in categories" :key="category.id" :value="category.id">
+                {{ category.name }}
+              </option>
+            </b-select>
+          </b-field>
+          <b-field>
+            <div class="control is-block">
+              <input type="submit" class="button is-link" value="Submit" />
+            </div>
+          </b-field>
+        </form>
+      
+        <h5 class="title is-5">New Category</h5>
+        <form v-on:submit.prevent="onSubmitCategory">
+          <b-field label="Category Name">
+            <b-input v-model="newCategory.name" />
+          </b-field>
+
           <b-field>
             <div class="control is-block">
               <input type="submit" class="button is-link" value="Submit" />
@@ -38,12 +58,18 @@ export default {
     return {
       newTodo: {
         title: null
+      },
+      newCategory: {
+        name: null
       }
     };
   },
   computed: {
     todos() {
       return this.$store.state.todos;
+    },
+    categories() {
+      return this.$store.state.categories;
     }
   },
   components: {
@@ -51,13 +77,23 @@ export default {
   },
   methods: {
     onSubmit() {
+      console.log(this.newTodo);
       this.$store.dispatch("addToDo", this.newTodo).then(() => {
         this.newTodo.title = null;
       });
+    },
+    onSubmitCategory() {
+      console.log(this.newCategory);
+      this.$store.dispatch("addCategory", this.newCategory).then(() => {
+      })
     }
   },
   mounted: function() {
-    this.$store.dispatch("loadToDos").catch(() => {
+    this.$store.dispatch("loadToDos")
+    .then(() => {
+      this.$store.dispatch("loadCategories");
+    })
+    .catch(() => {
       // if we are not logged in redirect home
       this.$router.push("/");
     })

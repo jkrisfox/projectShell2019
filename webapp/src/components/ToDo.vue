@@ -4,6 +4,9 @@
     <span class="todo-title column">
       {{ todo.title }}
     </span>
+    <b-tag>
+      {{ todo.category.name }}
+    </b-tag>
     <b-button v-on:click="handleDelete">Delete</b-button>
   </div>
 </template>
@@ -21,6 +24,7 @@ export default {
   },
   methods: {
     handleCheck: function(value) {
+      console.log(this.todo);
       this.$store.dispatch("updateTodo", { ...this.todo, done: value });
     },
     handleDelete: function() {

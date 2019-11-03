@@ -15,6 +15,9 @@ export const mutations = {
     state.todoIdx = state.todoIdx + 1;
     state.todos = [...state.todos, { ...todo, done: false, id: state.todoIdx }];
   },
+  addCategory(state, category) {
+    state.categories = [...state.categories, { ...category}];
+  },
   updateToDo(state, todo) {
     state.todos = state.todos.map(td => (td.id === todo.id ? todo : td));
   },
@@ -23,6 +26,9 @@ export const mutations = {
   },
   todosLoaded(state, todos) {
     state.todos = todos;
+  },
+  categoriesLoaded(state, categories) {
+    state.categories = categories;
   }
 };
 
@@ -44,6 +50,11 @@ export const actions = {
       commit("addToDo", response.data);
     });
   },
+  addCategory({ commit }, category) {
+    return axios.post("/api/category", category).then(response => {
+      commit("addCategory", response.data);
+    });
+  },
   updateTodo({ commit }, toDo) {
     return axios.put(`/api/todos/${toDo.id}`, toDo).then(response => {
       commit("updateToDo", response.data);
@@ -63,12 +74,18 @@ export const actions = {
     return axios.get("/api/checkLogin").then(() => {
       commit("login");
     });
+  },
+  loadCategories({ commit }) {
+    return axios.get("/api/category").then((response) => {
+      commit("categoriesLoaded", response.data);
+    });
   }
 };
 
 export default new Vuex.Store({
   state: {
     todos: [],
+    categories: [],
     loginState: {
       loggedIn: false
     },
