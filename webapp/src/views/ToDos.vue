@@ -14,7 +14,6 @@
       </div>
     </div>
 
-
     <section class="newTodo columns is-centered">
       <div class="column is-half">
         <h5 class="title is-5">New ToDo</h5>
@@ -23,19 +22,16 @@
             <b-input v-model="newTodo.title" />
           </b-field>
 
-        <b-field label="Categories">
-          <b-select placeholder="Select a Category">
+        <b-field label="Category">
+          <b-select placeholder="Select a Category" v-model="newTodo.categoryId">
               <option
                   v-for="category in categories"
                   :value="category.id"
-                  :key="category.title">
+                  :key="category.id">
                   {{ category.title }}
               </option>
           </b-select>
         </b-field>
-          <!-- <b-field label="Category">
-            <b-input v-model="newTodo.category" />
-          </b-field> -->
           <b-field>
             <div class="control is-block">
               <input type="submit" class="button is-link" value="Submit" />
@@ -43,6 +39,22 @@
           </b-field>
         </form>
       </div>
+    </section>
+
+    <section class="newCategory columns is-centered">
+    <div class="column is-half">
+      <h5 class="title is-5">New Category</h5>
+      <form v-on:submit.prevent="add_cat">
+        <b-field label="Title">
+          <b-input v-model="newCategory.title" />
+        </b-field>
+                  <b-field>
+            <div class="control is-block">
+              <input type="submit" class="button is-link" value="Submit" />
+            </div>
+          </b-field>
+      </form>
+    </div>
     </section>
   </div>
 </template>
@@ -55,7 +67,11 @@ export default {
     return {
       newTodo: {
         title: null,
-        category: null
+        categoryId: null
+      },
+      newCategory: {
+        title: null,
+        userId: null
       }
     };
   },
@@ -64,7 +80,6 @@ export default {
       return this.$store.state.todos;
     },
     categories(){
-      console.log(this.$store.state)
       return this.$store.state.categories;
     }
   },
@@ -74,9 +89,15 @@ export default {
   methods: {
     onSubmit() {
       debugger
-      this.$store.dispatch("addToDo", this.newTodo).then(() => {
+      this.$store.dispatch("addTodo", this.newTodo).then(() => {
         this.newTodo.title = null;
-        this.newTodo.category = null;
+        this.newTodo.categoryId = null;
+      });
+    },
+    add_cat() {
+      this.$store.dispatch("addCategory", this.newCategory).then(() => {
+        this.newCategory.title = null;
+        this.newCategory.userId = null;
       });
     }
   },
@@ -84,7 +105,10 @@ export default {
     this.$store.dispatch("loadToDos").catch(() => {
       // if we are not logged in redirect home
       this.$router.push("/");
-    })
+    });
+    this.$store.dispatch("loadCategories").catch(() => {
+      this.$router.push("/");
+    });
   }
 };
 </script>

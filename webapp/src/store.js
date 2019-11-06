@@ -14,6 +14,15 @@ export const mutations = {
     },
     addToDo(state, todo) {
         debugger;
+        var categories = state.categories;
+        var category = Object();
+        category.id = todo.categoryId
+        categories.forEach(cat => {
+            if (cat.id == todo.categoryId) {
+                category.title = cat.title;
+            }
+        });
+        todo.category = category;
         state.todoIdx = state.todoIdx + 1;
         state.todos = [...state.todos, {...todo, done: false, id: state.todoIdx }];
     },
@@ -24,6 +33,7 @@ export const mutations = {
         state.todos = state.todos.filter(td => td.id !== todo.id);
     },
     todosLoaded(state, todos) {
+        debugger
         state.todos = todos;
     },
     addCategory(state, category) {
@@ -37,7 +47,13 @@ export const mutations = {
         state.categories = state.categories.filter(td => td.id !== category.id);
     },
     categoriesLoaded(state, categories) {
-        debugger
+        // var options = [];
+        // categories.forEach(category => {
+        //     var c = Object();
+        //     c.id = category.id;
+        //     c.title = category.title;
+        //     options.push(c);
+        // });
         state.categories = categories;
     }
 };
@@ -55,13 +71,10 @@ export const actions = {
             commit("logout");
         });
     },
-    addToDo({ commit }, toDo) {
+    addTodo({ commit }, toDo) {
         debugger;
         return axios.post("/api/todos", toDo).then(response => {
-            commit("addToDo", {
-                title: toDo.title,
-                category: toDo.category
-            });
+            commit("addToDo", response.data);
         });
     },
     updateTodo({ commit }, toDo) {
@@ -103,7 +116,6 @@ export const actions = {
     loadCategories({ commit }) {
         debugger
         return axios.get("/api/categories").then(response => {
-            console.log(response.data);
             commit("categoriesLoaded", response.data);
         });
     },

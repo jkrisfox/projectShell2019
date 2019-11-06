@@ -1,12 +1,16 @@
 <template>
+  <div>
   <div class="todo columns">
     <b-checkbox v-model="todo.done" v-on:input="handleCheck" />
     <span class="todo-title column">
-      {{ todo.title }}
+      {{ todo.title }} ----- Category: {{ todo.category.title }}
     </span>
     <b-button v-on:click="handleDelete">Delete</b-button>
   </div>
+  </div>
 </template>
+
+
 
 <script>
 export default {
