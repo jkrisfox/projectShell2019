@@ -18,7 +18,7 @@ export default class ToDo {
     @Column({ type: 'varchar' })
     title
 
-    @ManyToOne(() => Category, (category) => category.todos)
+    @ManyToOne(() => Category, (category) => category.todos, { eager: true })
     category
 
     @ManyToOne(() => User, (user) => user.todos)

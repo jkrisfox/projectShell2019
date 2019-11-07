@@ -19,7 +19,7 @@ export default class Category {
     @ManyToOne(() => User, (user) => user.id)
     user
 
-    @OneToMany(() => ToDo, (todo) => todo.category, { eager: true })
+    @OneToMany(() => ToDo, (todo) => todo.category)
     todos
 
 }

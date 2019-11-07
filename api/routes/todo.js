@@ -11,10 +11,13 @@ router.route('/todos')
         res.send(req.user.todos);
     })
     .post((req, res) => {
-        const { done, title } = req.body;
+        const { done, title, categoryId } = req.body;
         const manager = getManager();
-        const todo = manager.create(ToDo, { done, title });
+        const todo = manager.create(ToDo, { done, title, categoryId });
         todo.user = req.user;
+        //find cat
+
+        todo.category = req.categoryId;
         manager.save(todo).then((savedTodo) => {
             res.send(savedTodo);
         });
