@@ -10,14 +10,16 @@ router.route('/todos')
     res.send(req.user.todos);
   })
   .post((req, res) => {
-    const { done, title } = req.body;
+    const { done, title, category } = req.body;
     const manager = getManager();
-    const todo = manager.create(ToDo, { done, title });
+    const todo = manager.create(ToDo, { done, title, category });
     todo.user = req.user;
     manager.save(todo).then((savedTodo) => {
       res.send(savedTodo);
     });
   });
+
+  
 router.route('/todos/:id')
   .all(isAuthenticated)
   .all((req, res, next) => {
@@ -31,10 +33,12 @@ router.route('/todos/:id')
     });
   })
   .put((req, res) => {
+    debugger
     const foundTodo = req.todo;
-    const { title, done } = req.body;
+    const { title, done, category } = req.body;
     foundTodo.title = title;
     foundTodo.done = done;
+    foundTodo.category = category;
     getManager().save(foundTodo).then((updatedTodo) => {
       res.send(updatedTodo);
     });
